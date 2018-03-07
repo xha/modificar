@@ -113,7 +113,7 @@ class CompraController extends Controller
      */
     public function actionDelete($CodProv, $CodSucu, $NumeroD, $TipoCom)
     {
-        $this->findModel($CodProv, $CodSucu, $NumeroD, $TipoCom)->delete();
+        //$this->findModel($CodProv, $CodSucu, $NumeroD, $TipoCom)->delete();
 
         return $this->redirect(['index']);
     }

@@ -3,6 +3,7 @@
 namespace frontend\controllers;
 
 use Yii;
+//use common\models\AccessHelpers;
 use frontend\Models\Cliente;
 use frontend\Models\ClienteSearch;
 use yii\web\Controller;
@@ -104,7 +105,9 @@ class ClienteController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $connection = \Yii::$app->db;
+        $query = "UPDATE SACLIE SET Activo=0 WHERE CodClie='".$id."'";
+        $connection->createCommand($query)->query();
 
         return $this->redirect(['index']);
     }

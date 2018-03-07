@@ -104,7 +104,9 @@ class ProductoController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $connection = \Yii::$app->db;
+        $query = "UPDATE SAPROD SET Activo=0 WHERE CodProd='".$id."'";
+        $connection->createCommand($query)->query();
 
         return $this->redirect(['index']);
     }

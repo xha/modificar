@@ -72,7 +72,27 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $connection = \Yii::$app->db;
+        $fechat = date('Ymd',time());
+        
+        $query = "SELECT COUNT(*) as conteo FROM SACOMP WHERE TipoCom='L' and FechaE between '$fechat 00:00:00' and '$fechat 23:59:59'";
+        $orden = $connection->createCommand($query)->queryOne();
+        
+        $query = "SELECT COUNT(*) as conteo FROM SACOMP WHERE TipoCom='H' and FechaE between '$fechat 00:00:00' and '$fechat 23:59:59'";
+        $compra = $connection->createCommand($query)->queryOne();
+        
+        $query = "SELECT COUNT(*) as conteo FROM SAFACT WHERE TipoFac='A' and FechaE between '$fechat 00:00:00' and '$fechat 23:59:59'";
+        $venta = $connection->createCommand($query)->queryOne();
+        
+        $query = "SELECT COUNT(*) as conteo FROM SAFACT WHERE TipoFac='F' and FechaE between '$fechat 00:00:00' and '$fechat 23:59:59'";
+        $presupuesto = $connection->createCommand($query)->queryOne();
+        
+        return $this->render('index', [
+            'ordenes' => $orden['conteo'],
+            'compras' => $compra['conteo'],
+            'ventas' => $venta['conteo'],
+            'presupuestos' => $presupuesto['conteo'],
+        ]);
     }
 
     /**

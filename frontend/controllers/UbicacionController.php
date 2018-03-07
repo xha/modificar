@@ -104,7 +104,9 @@ class UbicacionController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $connection = \Yii::$app->db;
+        $query = "UPDATE SADEPO SET Activo=0 WHERE CodUbic='".$id."'";
+        $connection->createCommand($query)->query();
 
         return $this->redirect(['index']);
     }

@@ -110,7 +110,7 @@ class VentaController extends Controller
      */
     public function actionDelete($CodSucu, $NumeroD, $TipoFac)
     {
-        $this->findModel($CodSucu, $NumeroD, $TipoFac)->delete();
+        //$this->findModel($CodSucu, $NumeroD, $TipoFac)->delete();
 
         return $this->redirect(['index']);
     }

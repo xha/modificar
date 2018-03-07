@@ -104,7 +104,10 @@ class ImpuestoController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $connection = \Yii::$app->db;
+        $query = "UPDATE SATAXES SET Activo=0 WHERE CodTaxs='".$id."'";
+        $connection->createCommand($query)->query();
+        //$this->findModel($id)->delete();
 
         return $this->redirect(['index']);
     }

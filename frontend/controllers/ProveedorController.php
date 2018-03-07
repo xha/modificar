@@ -104,7 +104,9 @@ class ProveedorController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $connection = \Yii::$app->db;
+        $query = "UPDATE SAPROV SET Activo=0 WHERE CodProv='".$id."'";
+        $connection->createCommand($query)->query();
 
         return $this->redirect(['index']);
     }
