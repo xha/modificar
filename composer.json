@@ -25,7 +25,7 @@
         "stern87/yii2-fpdf": "*",
         "kartik-v/yii2-mpdf": "*",
         "itbz/fpdf": "dev-master",
-        "dmstr/yii2-adminlte-asset": "2.*",
+        "dmstr/yii2-adminlte-asset": "^2.1",
         "kartik-v/yii2-tabs-x": "@dev"
     },
     "require-dev": {

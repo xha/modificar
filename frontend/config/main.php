@@ -8,7 +8,7 @@ $params = array_merge(
 
 return [
     'id' => 'app-frontend',
-    'name'=>'Modificar Orden / Presupuesto',
+    'name'=>'Modificar O/P',
     'language' => 'es',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
@@ -42,6 +42,20 @@ return [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+            ],
+        ],
+        /*'view' => [
+            'theme' => [
+                'pathMap' => [
+                    '@app/views' => '@vendor/dmstr/yii2-adminlte-asset/example-views/yiisoft/yii2-app'
+                ],
+            ],
+        ],*/
+        'assetManager' => [
+            'bundles' => [
+                'dmstr\web\AdminLteAsset' => [
+                    'skin' => 'skin-red-light',
+                ],
             ],
         ],
     ],
