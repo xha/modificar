@@ -16,7 +16,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'TipoFac')->textInput() ?>
 
-    <?= $form->field($model, 'NumeroD')->textInput() ?>
+    <?= $form->field($model, 'NumeroD')->textInput(['maxlength' => 15, 'readonly' => !$model->isNewRecord]); ?>
 
     <?= $form->field($model, 'NroCtrol')->textInput() ?>
 
@@ -205,7 +205,7 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'Notas10')->textInput() ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('Guardar', ['class' => 'btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

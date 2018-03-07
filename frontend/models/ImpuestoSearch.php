@@ -5,12 +5,12 @@ namespace frontend\Models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use frontend\Models\Iva;
+use frontend\Models\Impuesto;
 
 /**
- * IvaSearch represents the model behind the search form of `frontend\Models\Iva`.
+ * ImpuestoSearch represents the model behind the search form of `frontend\Models\Impuesto`.
  */
-class IvaSearch extends Iva
+class ImpuestoSearch extends Impuesto
 {
     /**
      * @inheritdoc
@@ -42,7 +42,7 @@ class IvaSearch extends Iva
      */
     public function search($params)
     {
-        $query = Iva::find();
+        $query = Impuesto::find();
 
         // add conditions that should always apply here
 

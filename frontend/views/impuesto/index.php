@@ -4,24 +4,24 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 
 /* @var $this yii\web\View */
-/* @var $searchModel frontend\Models\IvaSearch */
+/* @var $searchModel frontend\Models\ImpuestoSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Ivas';
+$this->title = 'Impuestos';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="iva-index">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+<div class="impuesto-index">
 
     <p>
-        <?= Html::a('Create Iva', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Crear Impuesto', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'rowOptions' => function ($model, $index, $widget, $grid){
+            if($model->Activo == 0) return ['style' => 'background-color: #EEE'];
+        },
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
@@ -29,7 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'Descrip',
             'MtoTax',
             'Activo',
-            'EsFijo',
+            //'EsFijo',
             //'EsReten',
             //'CodOper',
             //'EsPorct',

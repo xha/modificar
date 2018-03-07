@@ -12,11 +12,8 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="servicio-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
     <p>
-        <?= Html::a('Create Servicio', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Crear Servicio', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([

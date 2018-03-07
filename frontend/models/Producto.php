@@ -54,8 +54,6 @@ use Yii;
  * @property string $Peso
  * @property string $Volumen
  * @property string $UndVol
- * @property string $concentracion
- * @property string $cantidad_farmacia
  */
 class Producto extends \yii\db\ActiveRecord
 {
@@ -74,9 +72,9 @@ class Producto extends \yii\db\ActiveRecord
     {
         return [
             [['CodProd'], 'required'],
-            [['CodProd', 'Descrip', 'Descrip2', 'Descrip3', 'Refere', 'Marca', 'Unidad', 'UndEmpaq', 'UndVol', 'concentracion'], 'string'],
+            [['CodProd', 'Descrip', 'Descrip2', 'Descrip3', 'Refere', 'Marca', 'Unidad', 'UndEmpaq', 'UndVol'], 'string'],
             [['CodInst', 'Activo', 'DEsComp', 'DEsComi', 'DEsSeri', 'EsReten', 'DEsLote', 'DEsVence', 'EsImport', 'EsExento', 'EsEnser', 'EsOferta', 'EsPesa', 'EsEmpaque', 'ExDecimal', 'DiasEntr', 'DiasTole'], 'integer'],
-            [['CantEmpaq', 'Precio1', 'Precio2', 'PrecioU2', 'Precio3', 'PrecioU3', 'PrecioU', 'CostAct', 'CostPro', 'CostAnt', 'Existen', 'ExUnidad', 'Compro', 'Pedido', 'Minimo', 'Maximo', 'Tara', 'Peso', 'Volumen', 'cantidad_farmacia'], 'number'],
+            [['CantEmpaq', 'Precio1', 'Precio2', 'PrecioU2', 'Precio3', 'PrecioU3', 'PrecioU', 'CostAct', 'CostPro', 'CostAnt', 'Existen', 'ExUnidad', 'Compro', 'Pedido', 'Minimo', 'Maximo', 'Tara', 'Peso', 'Volumen'], 'number'],
             [['FechaUV', 'FechaUC'], 'safe'],
             [['CodProd'], 'unique'],
         ];
@@ -88,13 +86,13 @@ class Producto extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'CodProd' => 'Cod Prod',
-            'Descrip' => 'Descrip',
-            'CodInst' => 'Cod Inst',
+            'CodProd' => 'Código',
+            'Descrip' => 'Descripción',
+            'CodInst' => 'Instancia',
             'Activo' => 'Activo',
-            'Descrip2' => 'Descrip2',
-            'Descrip3' => 'Descrip3',
-            'Refere' => 'Refere',
+            'Descrip2' => 'Descripción 2',
+            'Descrip3' => 'Descripción 3',
+            'Refere' => 'Referencia',
             'Marca' => 'Marca',
             'Unidad' => 'Unidad',
             'UndEmpaq' => 'Und Empaq',
@@ -135,8 +133,6 @@ class Producto extends \yii\db\ActiveRecord
             'Peso' => 'Peso',
             'Volumen' => 'Volumen',
             'UndVol' => 'Und Vol',
-            'concentracion' => 'Concentracion',
-            'cantidad_farmacia' => 'Cantidad Farmacia',
         ];
     }
 }

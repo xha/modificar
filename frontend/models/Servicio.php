@@ -65,11 +65,11 @@ class Servicio extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'CodServ' => 'Cod Serv',
-            'CodInst' => 'Cod Inst',
-            'Descrip' => 'Descrip',
-            'Descrip2' => 'Descrip2',
-            'Descrip3' => 'Descrip3',
+            'CodServ' => 'Código',
+            'CodInst' => 'Instancia',
+            'Descrip' => 'Descripción',
+            'Descrip2' => 'Descripción 2',
+            'Descrip3' => 'Descripción 3',
             'Clase' => 'Clase',
             'Activo' => 'Activo',
             'Unidad' => 'Unidad',
@@ -92,14 +92,5 @@ class Servicio extends \yii\db\ActiveRecord
             'EsVenta' => 'Es Venta',
             'EsCompra' => 'Es Compra',
         ];
-    }
-
-    /**
-     * @inheritdoc
-     * @return ServicioQuery the active query used by this AR class.
-     */
-    public static function find()
-    {
-        return new ServicioQuery(get_called_class());
     }
 }

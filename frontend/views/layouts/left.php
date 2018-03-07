@@ -38,7 +38,7 @@
                                         ['label' => 'Clientes', 'icon' => 'check', 'url' => ['../../frontend/web/cliente']],
                                         ['label' => 'Productos', 'icon' => 'check', 'url' => ['../../frontend/web/producto']],
                                         ['label' => 'Servicios', 'icon' => 'check', 'url' => ['../../frontend/web/servicio']],
-                                        ['label' => 'Impuestos', 'icon' => 'check', 'url' => ['../../frontend/web/iva']],
+                                        ['label' => 'Impuestos', 'icon' => 'check', 'url' => ['../../frontend/web/impuesto']],
                                         ['label' => 'Ubicaciones', 'icon' => 'check', 'url' => ['../../frontend/web/ubicacion']],
                                 ],];
                 $menuItems[] = ['label' => 'Compras', 'options' => ['class' => 'header']];
@@ -54,8 +54,8 @@
                         ['label' => 'Devoluciones', 'icon' => 'check', 'url' => ['../../frontend/web/despacho/devolucion']],
                 ],];
                 $menuItems[] = ['label' => 'Ventas', 'options' => ['class' => 'header']];
-                $menuItems[] = ['label' => 'Presupuestos', 'icon' => 'star', 'url' => ['../../frontend/web/compra']];
-                $menuItems[] = ['label' => 'Facturación', 'icon' => 'cart-arrow-down', 'url' => ['../../frontend/web/compra']];
+                $menuItems[] = ['label' => 'Presupuestos', 'icon' => 'star', 'url' => ['../../frontend/web/venta']];
+                $menuItems[] = ['label' => 'Facturación', 'icon' => 'cart-arrow-down', 'url' => ['../../frontend/web/venta']];
                 $menuItems[] = ['label' => 'Reportes de Venta', 'icon' => 'book', 'url' => '#',
                     'items' => [
                         ['label' => 'Requerimientos', 'icon' => 'check', 'url' => ['../../frontend/web/evento/reporte-reposicion']],

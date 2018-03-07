@@ -12,36 +12,36 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="cliente-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
     <p>
-        <?= Html::a('Create Cliente', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Crear Cliente', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'rowOptions' => function ($model, $index, $widget, $grid){
+            if($model->Activo == 0) return ['style' => 'background-color: #EEE'];
+        },
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
             'CodClie',
             'Descrip',
             'ID3',
-            'TipoID3',
-            'TipoID',
-            //'Activo',
+            //'TipoID3',
+            //'TipoID',
+            'Activo',
             //'DescOrder',
             //'Clase',
             //'Represent',
-            //'Direc1',
+            'Direc1',
             //'Direc2',
             //'Pais',
             //'Estado',
             //'Ciudad',
             //'Municipio',
             //'ZipCode',
-            //'Telef',
+            'Telef',
             //'Movil',
             //'Email:email',
             //'Fax',

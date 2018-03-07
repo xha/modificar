@@ -4,11 +4,11 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model frontend\Models\Iva */
+/* @var $model frontend\Models\Impuesto */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="iva-form">
+<div class="impuesto-form">
 
     <?php $form = ActiveForm::begin(); ?>
 
@@ -47,7 +47,7 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'Sustraendo')->textInput() ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('Guardar', ['class' => 'btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

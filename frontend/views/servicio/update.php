@@ -5,14 +5,12 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model frontend\Models\Servicio */
 
-$this->title = 'Update Servicio: {nameAttribute}';
+$this->title = 'Actualizar Servicio: ' . $model->CodServ;
 $this->params['breadcrumbs'][] = ['label' => 'Servicios', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->CodServ, 'url' => ['view', 'id' => $model->CodServ]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->params['breadcrumbs'][] = 'Actualizar';
 ?>
 <div class="servicio-update">
-
-    <h1><?= Html::encode($this->title) ?></h1>
 
     <?= $this->render('_form', [
         'model' => $model,

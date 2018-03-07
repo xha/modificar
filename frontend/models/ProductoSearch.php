@@ -18,9 +18,9 @@ class ProductoSearch extends Producto
     public function rules()
     {
         return [
-            [['CodProd', 'Descrip', 'Descrip2', 'Descrip3', 'Refere', 'Marca', 'Unidad', 'UndEmpaq', 'FechaUV', 'FechaUC', 'UndVol', 'concentracion'], 'safe'],
+            [['CodProd', 'Descrip', 'Descrip2', 'Descrip3', 'Refere', 'Marca', 'Unidad', 'UndEmpaq', 'FechaUV', 'FechaUC', 'UndVol'], 'safe'],
             [['CodInst', 'Activo', 'DEsComp', 'DEsComi', 'DEsSeri', 'EsReten', 'DEsLote', 'DEsVence', 'EsImport', 'EsExento', 'EsEnser', 'EsOferta', 'EsPesa', 'EsEmpaque', 'ExDecimal', 'DiasEntr', 'DiasTole'], 'integer'],
-            [['CantEmpaq', 'Precio1', 'Precio2', 'PrecioU2', 'Precio3', 'PrecioU3', 'PrecioU', 'CostAct', 'CostPro', 'CostAnt', 'Existen', 'ExUnidad', 'Compro', 'Pedido', 'Minimo', 'Maximo', 'Tara', 'Peso', 'Volumen', 'cantidad_farmacia'], 'number'],
+            [['CantEmpaq', 'Precio1', 'Precio2', 'PrecioU2', 'Precio3', 'PrecioU3', 'PrecioU', 'CostAct', 'CostPro', 'CostAnt', 'Existen', 'ExUnidad', 'Compro', 'Pedido', 'Minimo', 'Maximo', 'Tara', 'Peso', 'Volumen'], 'number'],
         ];
     }
 
@@ -98,7 +98,6 @@ class ProductoSearch extends Producto
             'DiasTole' => $this->DiasTole,
             'Peso' => $this->Peso,
             'Volumen' => $this->Volumen,
-            'cantidad_farmacia' => $this->cantidad_farmacia,
         ]);
 
         $query->andFilterWhere(['like', 'CodProd', $this->CodProd])
@@ -109,8 +108,7 @@ class ProductoSearch extends Producto
             ->andFilterWhere(['like', 'Marca', $this->Marca])
             ->andFilterWhere(['like', 'Unidad', $this->Unidad])
             ->andFilterWhere(['like', 'UndEmpaq', $this->UndEmpaq])
-            ->andFilterWhere(['like', 'UndVol', $this->UndVol])
-            ->andFilterWhere(['like', 'concentracion', $this->concentracion]);
+            ->andFilterWhere(['like', 'UndVol', $this->UndVol]);
 
         return $dataProvider;
     }

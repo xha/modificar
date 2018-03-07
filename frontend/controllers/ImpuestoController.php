@@ -3,16 +3,16 @@
 namespace frontend\controllers;
 
 use Yii;
-use frontend\Models\Iva;
-use frontend\Models\IvaSearch;
+use frontend\Models\Impuesto;
+use frontend\Models\ImpuestoSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * IvaController implements the CRUD actions for Iva model.
+ * ImpuestoController implements the CRUD actions for Impuesto model.
  */
-class IvaController extends Controller
+class ImpuestoController extends Controller
 {
     /**
      * @inheritdoc
@@ -30,12 +30,12 @@ class IvaController extends Controller
     }
 
     /**
-     * Lists all Iva models.
+     * Lists all Impuesto models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new IvaSearch();
+        $searchModel = new ImpuestoSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -45,7 +45,7 @@ class IvaController extends Controller
     }
 
     /**
-     * Displays a single Iva model.
+     * Displays a single Impuesto model.
      * @param string $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -58,13 +58,13 @@ class IvaController extends Controller
     }
 
     /**
-     * Creates a new Iva model.
+     * Creates a new Impuesto model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Iva();
+        $model = new Impuesto();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->CodTaxs]);
@@ -76,7 +76,7 @@ class IvaController extends Controller
     }
 
     /**
-     * Updates an existing Iva model.
+     * Updates an existing Impuesto model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param string $id
      * @return mixed
@@ -96,7 +96,7 @@ class IvaController extends Controller
     }
 
     /**
-     * Deletes an existing Iva model.
+     * Deletes an existing Impuesto model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param string $id
      * @return mixed
@@ -110,15 +110,15 @@ class IvaController extends Controller
     }
 
     /**
-     * Finds the Iva model based on its primary key value.
+     * Finds the Impuesto model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param string $id
-     * @return Iva the loaded model
+     * @return Impuesto the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Iva::findOne($id)) !== null) {
+        if (($model = Impuesto::findOne($id)) !== null) {
             return $model;
         }
 

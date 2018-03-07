@@ -25,7 +25,7 @@ use Yii;
  * @property string $MontoMax
  * @property string $Sustraendo
  */
-class Iva extends \yii\db\ActiveRecord
+class Impuesto extends \yii\db\ActiveRecord
 {
     /**
      * @inheritdoc
@@ -55,9 +55,9 @@ class Iva extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'CodTaxs' => 'Cod Taxs',
-            'Descrip' => 'Descrip',
-            'MtoTax' => 'Mto Tax',
+            'CodTaxs' => 'Código',
+            'Descrip' => 'Descripción',
+            'MtoTax' => 'Tasa',
             'Activo' => 'Activo',
             'EsFijo' => 'Es Fijo',
             'EsReten' => 'Es Reten',

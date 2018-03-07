@@ -4,22 +4,19 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model frontend\Models\Iva */
+/* @var $model frontend\Models\Impuesto */
 
 $this->title = $model->CodTaxs;
-$this->params['breadcrumbs'][] = ['label' => 'Ivas', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Impuestos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="iva-view">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-
+<div class="impuesto-view">
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->CodTaxs], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->CodTaxs], [
+        <?= Html::a('Actualizar', ['update', 'id' => $model->CodTaxs], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Desactivar', ['delete', 'id' => $model->CodTaxs], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
+                'confirm' => 'Confirmar Desactivado',
                 'method' => 'post',
             ],
         ]) ?>

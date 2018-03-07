@@ -47,15 +47,15 @@ class Ubicacion extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'CodUbic' => 'Cod Ubic',
-            'Descrip' => 'Descrip',
+            'CodUbic' => 'Código',
+            'Descrip' => 'Descripción',
             'Clase' => 'Clase',
             'Activo' => 'Activo',
-            'Represent' => 'Represent',
-            'Direc1' => 'Direc1',
-            'Direc2' => 'Direc2',
+            'Represent' => 'Representante',
+            'Direc1' => 'Dirección 1',
+            'Direc2' => 'Dirección2',
             'ZipCode' => 'Zip Code',
-            'Telef' => 'Telef',
+            'Telef' => 'Teléfono',
             'Printer' => 'Printer',
         ];
     }

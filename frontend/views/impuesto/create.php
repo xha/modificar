@@ -4,13 +4,13 @@ use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
-/* @var $model frontend\Models\Proveedor */
+/* @var $model frontend\Models\Impuesto */
 
-$this->title = 'Crear Proveedor';
-$this->params['breadcrumbs'][] = ['label' => 'Proveedors', 'url' => ['index']];
+$this->title = 'Crear Impuesto';
+$this->params['breadcrumbs'][] = ['label' => 'Impuestos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="proveedor-create">
+<div class="impuesto-create">
 
     <?= $this->render('_form', [
         'model' => $model,

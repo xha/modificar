@@ -7,29 +7,26 @@ use yii\grid\GridView;
 /* @var $searchModel frontend\Models\VentaSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Ventas';
+$this->title = 'Presupuesto';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="venta-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
     <p>
-        <?= Html::a('Create Venta', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Crear Presupuesto', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+            //['class' => 'yii\grid\SerialColumn'],
 
-            'CodSucu',
-            'TipoFac',
+            //'CodSucu',
+            //'TipoFac',
             'NumeroD',
-            'NroUnico',
-            'NroCtrol',
+            //'NroUnico',
+            //'NroCtrol',
             //'CodEsta',
             //'CodUsua',
             //'EsCorrel',
@@ -53,10 +50,10 @@ $this->params['breadcrumbs'][] = $this->title;
             //'Moneda',
             //'Factor',
             //'MontoMEx',
-            //'CodClie',
+            'CodClie',
             //'CodVend',
             //'CodUbic',
-            //'Descrip',
+            'Descrip',
             //'Direc1',
             //'Direc2',
             //'Direc3',
@@ -76,6 +73,10 @@ $this->params['breadcrumbs'][] = $this->title;
             //'FechaR',
             //'FechaI',
             //'FechaE',
+            [
+               'attribute' => 'FechaE',
+                'format' =>  ['date', 'php:d-m-Y'],
+            ],
             //'FechaV',
             //'MtoTotal',
             //'Contado',
@@ -123,7 +124,28 @@ $this->params['breadcrumbs'][] = $this->title;
             //'Notas9',
             //'Notas10',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            //['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'yii\grid\ActionColumn',
+                'template' => '{view} {update}',
+                'buttons' => [
+                    'print' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-print"></span>', $url, [
+                                    'title' => Yii::t('app', 'Documento '.$model->NumeroD),
+                                    'target' => '_blank',
+                        ]);
+                    }
+                ],
+                'urlCreator' => function ($action, $model, $key, $index) {
+                    if ($action === 'update') {
+                        $url = Yii::$app->urlManager->createUrl(['venta/update?NumeroD='.$model->NumeroD.'&CodSucu='.$model->CodSucu.'&TipoFac='.$model->TipoFac]); // your own url generation logic
+                        return $url;
+                    } else {
+                        $url = Yii::$app->urlManager->createUrl(['venta/view?NumeroD='.$model->NumeroD.'&CodSucu='.$model->CodSucu.'&TipoFac='.$model->TipoFac]); // your own url generation logic
+                        return $url;
+                    }
+                }
+                          
+            ],
         ],
     ]); ?>
 </div>

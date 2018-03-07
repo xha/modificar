@@ -12,16 +12,16 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="producto-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
     <p>
-        <?= Html::a('Create Producto', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Crear Producto', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'rowOptions' => function ($model, $index, $widget, $grid){
+            if($model->Activo == 0) return ['style' => 'background-color: #EEE'];
+        },
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
