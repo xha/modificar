@@ -77,12 +77,20 @@ class SiteController extends Controller
         $mes_inicio = date('Ym',time())."01";
         $mes_final = date('Ymt',time());
         
+        //COMPRAS
         $query = "SELECT COUNT(*) as conteo FROM SACOMP WHERE TipoCom='L' and FechaE between '$mes_inicio 00:00:00' and '$mes_final 23:59:59'";
         $orden = $connection->createCommand($query)->queryOne();
         
         $query = "SELECT COUNT(*) as conteo FROM SACOMP WHERE TipoCom='H' and FechaE between '$mes_inicio 00:00:00' and '$mes_final 23:59:59'";
         $compra = $connection->createCommand($query)->queryOne();
         
+        $query = "SELECT COUNT(*) as conteo FROM SACOMP WHERE TipoCom='I' and FechaE between '$mes_inicio 00:00:00' and '$mes_final 23:59:59'";
+        $dev_compra = $connection->createCommand($query)->queryOne();
+        
+        $query = "SELECT COUNT(*) as conteo FROM SACOMP WHERE TipoCom='S' and FechaE between '$mes_inicio 00:00:00' and '$mes_final 23:59:59'";
+        $cotizacion = $connection->createCommand($query)->queryOne();
+        
+        //VENTAS
         $query = "SELECT COUNT(*) as conteo FROM SAFACT WHERE TipoFac='A' and FechaE between '$mes_inicio 00:00:00' and '$mes_final 23:59:59'";
         $venta = $connection->createCommand($query)->queryOne();
         
@@ -92,12 +100,18 @@ class SiteController extends Controller
         $query = "SELECT COUNT(*) as conteo FROM SAFACT WHERE TipoFac='B' and FechaE between '$mes_inicio 00:00:00' and '$mes_final 23:59:59'";
         $devolucion = $connection->createCommand($query)->queryOne();
         
+        $query = "SELECT COUNT(*) as conteo FROM SAFACT WHERE TipoFac='E' and FechaE between '$mes_inicio 00:00:00' and '$mes_final 23:59:59'";
+        $pedido = $connection->createCommand($query)->queryOne();
+        
         return $this->render('index', [
             'ordenes' => $orden['conteo'],
             'compras' => $compra['conteo'],
+            'dev_compras' => $dev_compra['conteo'],
+            'cotizaciones' => $cotizacion['conteo'],
             'ventas' => $venta['conteo'],
             'presupuestos' => $presupuesto['conteo'],
             'devoluciones' => $devolucion['conteo'],
+            'pedidos' => $pedido['conteo'],
         ]);
     }
 

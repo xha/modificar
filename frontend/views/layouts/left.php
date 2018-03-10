@@ -44,9 +44,11 @@
                 $menuItems[] = ['label' => 'Compras', 'options' => ['class' => 'header']];
                 $menuItems[] = ['label' => 'Orden de C/S', 'icon' => 'adjust', 'url' => ['../../frontend/web/compra']];
                 $menuItems[] = ['label' => 'Compras', 'icon' => 'balance-scale', 'url' => ['../../frontend/web/compra']];
+                $menuItems[] = ['label' => 'Devolución de Compras', 'icon' => 'battery-empty', 'url' => ['../../frontend/web/compra']];
                 $menuItems[] = ['label' => 'Ventas', 'options' => ['class' => 'header']];
                 $menuItems[] = ['label' => 'Presupuestos', 'icon' => 'book', 'url' => ['../../frontend/web/venta']];
-                $menuItems[] = ['label' => 'Facturación', 'icon' => 'cart-arrow-down', 'url' => ['../../frontend/web/venta']];
+                $menuItems[] = ['label' => 'Facturación', 'icon' => 'bar-chart', 'url' => ['../../frontend/web/venta']];
+                $menuItems[] = ['label' => 'Devolución de Ventas', 'icon' => 'ban', 'url' => ['../../frontend/web/venta']];
             //}
         ?>
         <?= dmstr\widgets\Menu::widget(

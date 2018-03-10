@@ -14,7 +14,6 @@ $this->title = 'Resumen de Operaciones del Mes';
           <div class="small-box bg-aqua">
             <div class="inner">
               <h3><?= $ordenes; ?></h3>
-
               <p>Ordenes</p>
             </div>
             <div class="icon">
@@ -28,11 +27,35 @@ $this->title = 'Resumen de Operaciones del Mes';
           <div class="small-box bg-green">
             <div class="inner">
               <h3><?= $compras ?></h3>
-
               <p>Compras</p>
             </div>
             <div class="icon">
               <i class="fa fa-briefcase"></i>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-xs-6">
+          <!-- small box -->
+          <div class="small-box bg-blue-active">
+            <div class="inner">
+              <h3><?= $dev_compras; ?></h3>
+              <p>Devoluciones de Compra</p>
+            </div>
+            <div class="icon">
+              <i class="fa fa-address-book"></i>
+            </div>
+          </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-3 col-xs-6">
+          <!-- small box -->
+          <div class="small-box bg-fuchsia-active">
+            <div class="inner">
+              <h3><?= $pedidos ?></h3>
+              <p>Pedidos</p>
+            </div>
+            <div class="icon">
+              <i class="fa fa-bank"></i>
             </div>
           </div>
         </div>
@@ -42,7 +65,6 @@ $this->title = 'Resumen de Operaciones del Mes';
           <div class="small-box bg-yellow">
             <div class="inner">
               <h3><?= $presupuestos ?></h3>
-
               <p>Presupuestos</p>
             </div>
             <div class="icon">
@@ -56,7 +78,6 @@ $this->title = 'Resumen de Operaciones del Mes';
           <div class="small-box bg-purple">
             <div class="inner">
               <h3><?= $ventas ?></h3>
-
               <p>Ventas</p>
             </div>
             <div class="icon">
@@ -66,14 +87,25 @@ $this->title = 'Resumen de Operaciones del Mes';
         </div>
         <div class="col-lg-3 col-xs-6">
           <!-- small box -->
-          <div class="small-box bg-danger">
+          <div class="small-box bg-maroon">
             <div class="inner">
               <h3><?= $devoluciones ?></h3>
-
-              <p>Devoluciones</p>
+              <p>Devoluciones de Venta</p>
             </div>
             <div class="icon">
-              <i class="fa fa-cart-arrow-down"></i>
+              <i class="fa fa-bar-chart"></i>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-xs-6">
+          <!-- small box -->
+          <div class="small-box bg-teal">
+            <div class="inner">
+              <h3><?= $pedidos ?></h3>
+              <p>Pedidos</p>
+            </div>
+            <div class="icon">
+              <i class="fa fa-battery-half"></i>
             </div>
           </div>
         </div>
@@ -109,7 +141,7 @@ $this->title = 'Resumen de Operaciones del Mes';
                         'series' => [
                             [
                                 'type' => 'pie',
-                                'name' => 'Total consumption',
+                                'name' => 'Total de Movimientos',
                                 'data' => [
                                     [
                                         'name' => 'Compras',
@@ -120,6 +152,16 @@ $this->title = 'Resumen de Operaciones del Mes';
                                         'name' => 'Ordenes de C/S',
                                         'y' => $ordenes+0,
                                         'color' => new JsExpression('Highcharts.getOptions().colors[1]'), 
+                                    ],
+                                    [
+                                        'name' => 'Devoluciones',
+                                        'y' => $dev_compras+0,
+                                        'color' => new JsExpression('Highcharts.getOptions().colors[2]'), 
+                                    ],
+                                    [
+                                        'name' => 'Cotizaciones',
+                                        'y' => $cotizaciones+0,
+                                        'color' => new JsExpression('Highcharts.getOptions().colors[4]'), 
                                     ],
                                 ],
                                 'showInLegend' => true,
@@ -165,7 +207,7 @@ $this->title = 'Resumen de Operaciones del Mes';
                                     [
                                         'name' => 'Ventas',
                                         'y' => $ventas+0,
-                                        'color' => new JsExpression('Highcharts.getOptions().colors[2]'), 
+                                        'color' => new JsExpression('Highcharts.getOptions().colors[7]'), 
                                     ],
                                     [
                                         'name' => 'Presupuestos',
@@ -175,6 +217,11 @@ $this->title = 'Resumen de Operaciones del Mes';
                                     [
                                         'name' => 'Devoluciones',
                                         'y' => $devoluciones+0,
+                                        'color' => new JsExpression('Highcharts.getOptions().colors[6]'), 
+                                    ],
+                                    [
+                                        'name' => 'Pedidos',
+                                        'y' => $pedidos+0,
                                         'color' => new JsExpression('Highcharts.getOptions().colors[3]'), 
                                     ],
                                 ],

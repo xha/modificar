@@ -5,7 +5,20 @@ use Yii;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
-use common\models\LoginForm;
+use common\models\AccessHelpers;
+use common\models\Usuario;
+use backend\models\LoginForm;
+use backend\models\RegisterForm;
+use backend\models\RecuperarClaveForm;
+use backend\models\ActivarForm;
+use backend\models\CambiarClaveForm;
+use yii\widgets\ActiveForm;
+use yii\web\Response;
+use yii\helpers\Url;
+use yii\helpers\Html;
+use yii\db\Query;
+use yii\helpers\Json;
+Use app\itbz\fpdf\src\fpdf\fpdf;
 
 /**
  * Site controller
