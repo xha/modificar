@@ -20,7 +20,7 @@ class CompraSearch extends Compra
         return [
             [['CodSucu', 'TipoCom', 'NumeroD', 'CodProv', 'NroCtrol', 'CodEsta', 'CodUsua', 'FechaT', 'OTipo', 'ONumero', 'NumeroP', 'NumeroE', 'NumeroC', 'NumeroN', 'NumeroR', 'NroEstable', 'PtoEmision', 'AutSRI', 'FechaP', 'Moneda', 'CodUbic', 'Descrip', 'Direc1', 'Direc2', 'ZipCode', 'Telef', 'ID3', 'FechaI', 'FechaR', 'FechaE', 'FechaV', 'DetalChq', 'OrdenC', 'CodOper', 'Notas1', 'Notas2', 'Notas3', 'Notas4', 'Notas5', 'Notas6', 'Notas7', 'Notas8', 'Notas9', 'Notas10'], 'safe'],
             [['NroUnico', 'Signo', 'TipoSus', 'TipoTraE', 'NGiros', 'NMeses'], 'integer'],
-            [['Factor', 'MontoMEx', 'Monto', 'OtrosC', 'MtoTax', 'Fletes', 'TGravable', 'TGravable0', 'TExento', 'DesctoP', 'RetenIVA', 'CancelI', 'CancelE', 'CancelT', 'CancelC', 'CancelA', 'CancelG', 'MtoTotal', 'Contado', 'Credito', 'SaldoAct', 'MtoPagos', 'MtoNCredito', 'MtoNDebito', 'Descto1', 'MtoInt1', 'Descto2', 'MtoInt2', 'MtoFinanc', 'TotalPrd', 'TotalSrv'], 'number'],
+            [['Factor', 'MontoMEx', 'Monto', 'OtrosC', 'MtoTax', 'Fletes', 'TGravable', 'TGravable0', 'TExento', 'DesctoP', 'RetenIVA', 'CancelI', 'CancelE', 'CancelT', 'CancelC', 'CancelA', 'CancelG', 'Contado', 'Credito', 'SaldoAct', 'MtoPagos', 'MtoNCredito', 'MtoNDebito', 'Descto1', 'MtoInt1', 'Descto2', 'MtoInt2', 'MtoFinanc', 'TotalPrd', 'TotalSrv'], 'number'],
         ];
     }
 
@@ -87,7 +87,6 @@ class CompraSearch extends Compra
             'CancelC' => $this->CancelC,
             'CancelA' => $this->CancelA,
             'CancelG' => $this->CancelG,
-            'MtoTotal' => $this->MtoTotal,
             'Contado' => $this->Contado,
             'Credito' => $this->Credito,
             'SaldoAct' => $this->SaldoAct,

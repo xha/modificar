@@ -35,7 +35,7 @@ class VentaController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new VentaSearch();
+        $searchModel = new VentaSearch([ 'TipoFac' => 'F']);
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -67,13 +67,24 @@ class VentaController extends Controller
     public function actionCreate()
     {
         $model = new Venta();
-
+        $connection = \Yii::$app->db;
+        $data = array();
+        $items = array();
+        /********************** CLIENTES ***************************************/
+        $query = "SELECT CodClie,Descrip FROM SACLIE where Activo=1";
+        $data1 = $connection->createCommand($query)->queryAll();
+        
+        for($i=0;$i<count($data1);$i++) {
+            $data[]= $data1[$i]['CodClie']." - ".$data1[$i]['Descrip'];
+        }
+        
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'CodSucu' => $model->CodSucu, 'NumeroD' => $model->NumeroD, 'TipoFac' => $model->TipoFac]);
         }
 
         return $this->render('create', [
             'model' => $model,
+            'data' => $data,
         ]);
     }
 

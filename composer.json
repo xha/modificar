@@ -27,6 +27,7 @@
         "itbz/fpdf": "dev-master",
         "dmstr/yii2-adminlte-asset": "^2.1",
         "kartik-v/yii2-tabs-x": "@dev",
+        "kartik-v/yii2-dialog": "*",
         "miloschuman/yii2-highcharts-widget": "^6.0",
         "rmrevin/yii2-ionicon": "~1.2"
     },
