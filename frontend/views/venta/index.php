@@ -7,14 +7,26 @@ use yii\grid\GridView;
 /* @var $searchModel frontend\Models\VentaSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Presupuesto';
+switch ($TipoFac) {
+    case 'A': $titulo = 'Factura';
+    break;
+    case 'B': $titulo = 'Devoluciones de Factura';
+    break;
+    case 'E': $titulo = 'Pedido';
+    break;
+    case 'C': $titulo = 'Notas de Entrega de Venta';
+    break;
+    default: $titulo = 'Presupuesto';
+}
+
+$this->title = $titulo;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="venta-index">
 
-    <p>
-        <?= Html::a('Crear Presupuesto', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+    <center>
+        <?= Html::a('Crear '.$titulo, ['create?TipoFac='.$TipoFac.'&titulo='.$titulo], ['class' => 'btn btn-success']) ?>
+    </center>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -78,7 +90,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format' =>  ['date', 'php:d-m-Y'],
             ],
             //'FechaV',
-            //'MtoTotal',
+            'MtoTotal',
             //'Contado',
             //'Credito',
             //'CancelI',

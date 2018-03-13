@@ -42,17 +42,17 @@
                                         ['label' => 'Ubicaciones', 'icon' => 'check', 'url' => ['../../frontend/web/ubicacion']],
                                 ],];
                 $menuItems[] = ['label' => 'Compras', 'options' => ['class' => 'header']];
-                $menuItems[] = ['label' => 'Orden de C/S', 'icon' => 'adjust', 'url' => ['../../frontend/web/compra']];
-                $menuItems[] = ['label' => 'Compras', 'icon' => 'balance-scale', 'url' => ['../../frontend/web/compra']];
-                $menuItems[] = ['label' => 'Cotizaciones', 'icon' => 'folder-open', 'url' => ['../../frontend/web/compra']];
-                $menuItems[] = ['label' => 'Devolución de Compras', 'icon' => 'battery-empty', 'url' => ['../../frontend/web/compra']];
-                $menuItems[] = ['label' => 'Notas de Entrega Cp', 'icon' => 'calculator', 'url' => ['../../frontend/web/compra']];
+                $menuItems[] = ['label' => 'Orden de C/S', 'icon' => 'adjust', 'url' => ['../../frontend/web/compra/?TipoCom=L']];
+                $menuItems[] = ['label' => 'Compras', 'icon' => 'balance-scale', 'url' => ['../../frontend/web/compra?TipoCom=H']];
+                $menuItems[] = ['label' => 'Cotizaciones', 'icon' => 'folder-open', 'url' => ['../../frontend/web/compra?TipoCom=S']];
+                $menuItems[] = ['label' => 'Devolución de Compras', 'icon' => 'battery-empty', 'url' => ['../../frontend/web/compra?TipoCom=I']];
+                $menuItems[] = ['label' => 'Notas de Entrega Cp', 'icon' => 'calculator', 'url' => ['../../frontend/web/compra?TipoCom=J']];
                 $menuItems[] = ['label' => 'Ventas', 'options' => ['class' => 'header']];
-                $menuItems[] = ['label' => 'Presupuestos', 'icon' => 'book', 'url' => ['../../frontend/web/venta']];
-                $menuItems[] = ['label' => 'Facturación', 'icon' => 'bar-chart', 'url' => ['../../frontend/web/venta']];
-                $menuItems[] = ['label' => 'Pedidos', 'icon' => 'star', 'url' => ['../../frontend/web/compra']];
-                $menuItems[] = ['label' => 'Devolución de Ventas', 'icon' => 'ban', 'url' => ['../../frontend/web/venta']];
-                $menuItems[] = ['label' => 'Notas de Entrega Vta', 'icon' => 'bandcamp', 'url' => ['../../frontend/web/compra']];
+                $menuItems[] = ['label' => 'Presupuestos', 'icon' => 'book', 'url' => ['../../frontend/web/venta/?TipoFac=F']];
+                $menuItems[] = ['label' => 'Facturación', 'icon' => 'bar-chart', 'url' => ['../../frontend/web/venta/?TipoFac=A']];
+                $menuItems[] = ['label' => 'Pedidos', 'icon' => 'star', 'url' => ['../../frontend/web/venta/?TipoFac=E']];
+                $menuItems[] = ['label' => 'Devolución de Ventas', 'icon' => 'ban', 'url' => ['../../frontend/web/venta/?TipoFac=B']];
+                $menuItems[] = ['label' => 'Notas de Entrega Vta', 'icon' => 'bandcamp', 'url' => ['../../frontend/web/venta/?TipoFac=C']];
             //}
         ?>
         <?= dmstr\widgets\Menu::widget(

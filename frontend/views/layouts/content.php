@@ -39,7 +39,7 @@ use dmstr\widgets\Alert;
     <div class="pull-right hidden-xs">
         <b>Version</b> 2.0
     </div>
-    <strong>CopyLeft &copy; 2018 </strong>
+    <strong>CopyLeft &copy; 2018 </strong>HL Softwares 
 </footer>
 
 <!-- Control Sidebar -->

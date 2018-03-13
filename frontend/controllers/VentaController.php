@@ -8,7 +8,9 @@ use frontend\Models\VentaSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-
+use yii\db\Query;
+use yii\helpers\Json;
+use common\models\AccessHelpers;
 /**
  * VentaController implements the CRUD actions for Venta model.
  */
@@ -33,14 +35,15 @@ class VentaController extends Controller
      * Lists all Venta models.
      * @return mixed
      */
-    public function actionIndex()
+    public function actionIndex($TipoFac)
     {
-        $searchModel = new VentaSearch([ 'TipoFac' => 'F']);
+        $searchModel = new VentaSearch([ 'TipoFac' => $TipoFac]);
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'TipoFac' => $TipoFac,
         ]);
     }
 
@@ -143,4 +146,32 @@ class VentaController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+    /***********************************************************************************************************************/
+    public function actionBuscarCliente($cliente) {
+        $connection = \Yii::$app->db;
+
+        $query = "SELECT * from SACLIE where Activo=1 and CodClie='".$cliente."'";
+        $pendientes = $connection->createCommand($query)->queryOne();
+        //$pendientes = $comand->readAll();
+        return Json::encode($pendientes);
+    }    
+    
+    public function actionBuscarProducto($codigo, $servicio) {
+        $connection = \Yii::$app->db;
+
+        if ($servicio==1) {
+            $query = "SELECT CodServ as Codigo, CONCAT(Descrip,Descrip2,Descrip3) as Descrip, Precio1 as Costo,EsExento,1 as EsServ
+                    from SASERV
+                    where Activo=1 and (CodServ like '%".$codigo."%' OR Descrip like '%".$codigo."%' OR Descrip2 like '%".$codigo."%' 
+                    OR Descrip3 like '%".$codigo."%')";
+        } else {
+            $query = "SELECT CodProd as Codigo, CONCAT(Descrip,Descrip2,Descrip3) as Descrip, Precio1 as Costo,EsExento,0 as EsServ
+                    from SAPROD
+                    where Activo=1 and (CodProd like '%".$codigo."%' OR Descrip like '%".$codigo."%' OR Descrip2 like '%".$codigo."%' 
+                    OR Descrip3 like '%".$codigo."%')";
+        }
+        
+        $pendientes = $connection->createCommand($query)->queryAll();
+        return Json::encode($pendientes);
+    } 
 }

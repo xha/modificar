@@ -9,9 +9,10 @@ use kartik\date\DatePicker;
 use kartik\tabs\TabsX;
 use frontend\models\Vendedor;
 use frontend\models\Ubicacion;
+use frontend\models\Impuesto;
 
 $this->registerJsFile('@web/general.js');
-//$this->registerJsFile('@web/js/venta.js');
+$this->registerJsFile('@web/js/venta.js');
 $this->registerCssFile('@web/css/general.css');
 //$id_usuario = Yii::$app->user->identity->id_usuario;
 $id_usuario = 1;
@@ -19,106 +20,52 @@ date_default_timezone_set("America/Caracas");
 $fecha= time();
 $fecha=date('d-m-Y',$fecha);
 
-    $contenido1='<table class="tablas inicial_em1">
-                <tr>
-                    <td>
-                        Fila<br />
-                        <input id="d_fila" maxlength="5" class="texto texto-xc" onkeypress="return entero(event);" />
-                    </td>
-                    <td>
-                        Tipo de Item<br />
-                        <select class="texto texto-ec" id="tipo_item" disabled="true">
-                            <option value="1">Servicio</option>
-                            <option value="0">Producto</option>
-                        </select>
-                    </td>
-                    <td>
-                        Cod. de Item *<br />
-                        <input id="d_codigo" maxlength="10" class="texto texto-ec izq" onblur="carga_servicios(this.value)" />
-                    </td>
-                    <td colspan="3">
-                        Descripci&oacute;n *<br />
-                        <input id="d_nombre" maxlength="120" class="texto texto-largo" readonly />
-                    </td> 
-                    <td valign="button" rowspan="2">
-                        <button type="button" class="btn btn-primary" id="d_agregar" onclick="valida_detalle()">Actualizar</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        Cantidad *<br />
-                        <input id="d_cantidad" maxlength="10" class="texto texto-xc" 
-                         onkeypress="return entero(event);" onkeyup="valida_cantidad(this.id)" onblur="calcula_subtotal()" />
-                    </td>
-                    <td>
-                        Precio *<br />
-                        <input id="d_precio" maxlength="20" class="texto texto-corto" 
-                         onkeypress="return entero(event);" onkeyup="valida_cantidad(this.id)" onblur="calcula_subtotal()" />
-                    </td>
-                    <td>
-                        Descuento<br />
-                        <input id="d_descuento" maxlength="10" class="texto texto-ec" placeholder="%" 
-                         onkeypress="return entero(event);" onblur="calcula_subtotal()" />
-                    </td>
-                    <td>
-                        IVA<br />
-                        <select class="texto texto-xc" id="d_iva" onchange="calcula_subtotal()"></select>
-                    </td>
-                    <td>
-                        Impuesto<br />
-                        <input id="d_impuesto" readonly maxlength="20" class="texto texto-ec" />
-                    </td>
-                    <td>
-                        Total Item<br />
-                        <input id="d_total" readonly maxlength="20" class="texto texto-ec" />
-                    </td>
-                </tr>
-            </table>
-            <table class="tablas inicial00" id="listado_detalle">
-                <tr>
-                    <th>Nro</th>
-                    <th>Código</th>
-                    <th>Descripción</th>
-                    <th>Cantidad</th>
-                    <th>Precio</th>
-                    <th>Tax</th>
-                    <th>Descuento</th>
-                    <th>Total</th>
-                    <th>Serv</th>
-                    <th>Imp</th>
-                    <th>Opt</th>
-                </tr>
-            </table>';
+$contenido1='<table class="tablas inicial_em0" id="listado_detalle"></table>';
 
-    $contenido2 = '<table class="tablas">
-                <tr>
-                    <td align="right">Nota 1</td>
-                    <td><input id="venta-notas1" name="Presupuesto[Notas1]" maxlength="60" class="texto texto-el" /></td>
-                </tr> 
-                <tr>
-                    <td align="right">Nota 2</td>
-                    <td><input id="venta-notas2" name="Presupuesto[Notas2]" maxlength="60" class="texto texto-el" /></td>
-                </tr> 
-                <tr>
-                    <td align="right">Nota 3</td>
-                    <td><input id="venta-notas3" name="Presupuesto[Notas3]" maxlength="60" class="texto texto-el" /></td>
-                </tr> 
-                <tr>
-                    <td align="right">Nota 4</td>
-                    <td><input id="venta-notas4" name="Presupuesto[Notas4]" maxlength="60" class="texto texto-el" /></td>
-                </tr> 
-                <tr>
-                    <td align="right">Nota 5</td>
-                    <td><input id="venta-notas5" name="Presupuesto[Notas5]" maxlength="60" class="texto texto-el" /></td>
-                </tr> 
-            </table>';
+$contenido2 = '<table class="tablas">
+            <tr>
+                <td align="right">Nota 1</td>
+                <td><input id="venta-notas1" name="Venta[Notas1]" maxlength="60" class="texto texto-el" /></td>
+            </tr> 
+            <tr>
+                <td align="right">Nota 2</td>
+                <td><input id="venta-notas2" name="Venta[Notas2]" maxlength="60" class="texto texto-el" /></td>
+            </tr> 
+            <tr>
+                <td align="right">Nota 3</td>
+                <td><input id="venta-notas3" name="Venta[Notas3]" maxlength="60" class="texto texto-el" /></td>
+            </tr> 
+            <tr>
+                <td align="right">Nota 4</td>
+                <td><input id="venta-notas4" name="Venta[Notas4]" maxlength="60" class="texto texto-el" /></td>
+            </tr> 
+            <tr>
+                <td align="right">Nota 5</td>
+                <td><input id="venta-notas5" name="Venta[Notas5]" maxlength="60" class="texto texto-el" /></td>
+            </tr> 
+            <tr>
+                <td align="right">Nota 6</td>
+                <td><input id="venta-notas6" name="Venta[Notas6]" maxlength="60" class="texto texto-el" /></td>
+            </tr> 
+            <tr>
+                <td align="right">Nota 7</td>
+                <td><input id="venta-notas7" name="Venta[Notas7]" maxlength="60" class="texto texto-el" /></td>
+            </tr> 
+            <tr>
+                <td align="right">Nota 8</td>
+                <td><input id="venta-notas8" name="Venta[Notas8]" maxlength="60" class="texto texto-el" /></td>
+            </tr> 
+            <tr>
+                <td align="right">Nota 9</td>
+                <td><input id="venta-notas9" name="Venta[Notas9]" maxlength="60" class="texto texto-el" /></td>
+            </tr> 
+        </table>';
 ?>
 
 <div class="venta-form">
-
-    <div class="form-group">
-        <?= Html::submitButton("Actualizar Presupuesto",array('class'=>'btn btn-success','onclick'=>'js:enviar_data();')); ?>
-    </div>
+    <center>
+        <?= Html::submitButton("Actualizar ".$titulo,array('class'=>'btn btn-success','onclick'=>'js:enviar_data();')); ?>
+    </center>
     <?php $form = ActiveForm::begin(); ?>
     <?php //Html::submitButton($model->isNewRecord ? 'Crear' : 'Actualizar', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     <input type="hidden" id='i_items' name='i_items' />
@@ -133,7 +80,7 @@ $fecha=date('d-m-Y',$fecha);
                                 'source' => $data,
                                 'minLength'=>'4', 
                             ],
-                            'options' => ['class' => 'texto texto-ec','onblur'=>'js: split_clientes()'],
+                            'options' => ['class' => 'texto texto-ec','onblur'=>'js: buscar_cliente()'],
 
                         ]) 
                     ?>
@@ -146,9 +93,9 @@ $fecha=date('d-m-Y',$fecha);
                 <td align="right"><b>Vendedor</b></td>
                 <td>
                     <?= Html::activeDropDownList($model, 'CodVend',
-                      ArrayHelper::map(Vendedor::find()->where(['activo' => '1'])->OrderBy('Descrip')->all(), 'CodVend', 'Descrip'), ['class'=>'form-control','prompt'=>'Seleccione']) ?>
+                      ArrayHelper::map(Vendedor::find()->where(['Activo' => '1'])->OrderBy('Descrip')->all(), 'CodVend', 'Descrip'), ['class'=>'form-control','prompt'=>'Seleccione']) ?>
                 </td>
-                <td align="right" rowspan="3">
+                <td align="right" rowspan="4">
                     <img src="../../../img/saint.jpg" width="167" />
                 </td>
             </tr>
@@ -156,11 +103,18 @@ $fecha=date('d-m-Y',$fecha);
                 <td align="right"><b>Ubicación</b></td>
                 <td>
                     <?= Html::activeDropDownList($model, 'CodUbic',
-                      ArrayHelper::map(Ubicacion::find()->where(['activo' => '1'])->OrderBy('Descrip')->all(), 'CodUbic', 'Descrip'), ['class'=>'form-control','prompt'=>'Seleccione']) ?>
+                      ArrayHelper::map(Ubicacion::find()->where(['Activo' => '1'])->OrderBy('Descrip')->all(), 'CodUbic', 'Descrip'), ['class'=>'form-control','prompt'=>'Seleccione']) ?>
                 </td>
             </tr>
             <tr>
-                <td align="right"><br /><b>Fecha *</b></td>
+                <td align="right"><b>IVA</b></td>
+                <td>
+                    <?= Html::activeDropDownList($model, 'Notas10',
+                      ArrayHelper::map(Impuesto::find()->where(['Activo' => '1'])->OrderBy('Descrip')->all(), 'CodTaxs', 'MtoTax', 'Descrip'), ['class'=>'form-control']) ?>
+                </td>
+            </tr>
+            <tr>
+                <td align="right"><b>Fecha *</b></td>
                 <td>
                     <?= $form->field($model, 'FechaE')->label(false)->widget(DatePicker::classname(), [
                             'language' => 'es',
@@ -194,7 +148,7 @@ $fecha=date('d-m-Y',$fecha);
                 <td><input readonly id="impuesto" class="texto texto-corto" /></td>
             </tr>
             <tr>
-                <td align="right"><b>Total</b></td>
+                <td align="right" height="57"><b>Total</b></td>
                 <td><input readonly id="total" class="texto texto-corto" /></td>
             </tr>
         </table>
@@ -203,14 +157,20 @@ $fecha=date('d-m-Y',$fecha);
     <?php 
         Modal::begin([
             "id" => "m_servicio",
-            "header" => "<h3>Listado de Ites</h3>",
+            "header" => "<h3>Listado de Items</h3>",
+            "size" => "modal-lg",
             "toggleButton" => ["label" => "Agregar Producto / Servicio", 'class' => 'btn btn-primary'],
         ]);
 
-        echo "<input class='texto texto medio' id='m_producto' />
+       echo "<select id='m_esprod' class='texto texto medio'>
+                <option value='0'>Productos</option>
+                <option value='1'>Servicios</option>
+           </select>
+            <input class='texto texto medio' id='m_producto' onkeypress='return presiona(event,buscar_items);' />
             <label class='btn btn-primary' onclick='buscar_items()'>Buscar</label>
-            <br /><br />
-            <div style='max-height: 600px; overflow-y: scroll; width: 100%' >
+            <img id='img_producto' style='visibility: hidden' src='../../../img/preloader.gif' />
+            <div style='max-height: 600px; overflow: scroll; width: 100%' >
+                <h4 style='color: red' id='h_bloqueo'></h4>
                 <table id='resultado_producto' class='tablas inicial00' style='width: 98%'></table>
             </div>";
 
@@ -243,9 +203,13 @@ $fecha=date('d-m-Y',$fecha);
         </tr>
     </table>
 
-    <?= $form->field($model, 'TipoFac')->hiddenInput(['value'=>'F'])->label(false); ?>
+    <?= $form->field($model, 'TipoFac')->hiddenInput(['value'=>$TipoFac])->label(false); ?>
     <?= $form->field($model, 'CodSucu')->hiddenInput(['value'=>'00000'])->label(false); ?>
     <?= $form->field($model, 'TotalPrd')->hiddenInput()->label(false); ?>
+    <?= $form->field($model, 'ID3')->hiddenInput()->label(false); ?>
+    <?= $form->field($model, 'Direc1')->hiddenInput()->label(false); ?>
+    <?= $form->field($model, 'Direc2')->hiddenInput()->label(false); ?>
+    <?= $form->field($model, 'Telef')->hiddenInput()->label(false); ?>
     <?= $form->field($model, 'TotalSrv')->hiddenInput()->label(false); ?>
     <?= $form->field($model, 'CostoPrd')->hiddenInput()->label(false); ?>
     <?= $form->field($model, 'CostoSrv')->hiddenInput()->label(false); ?>
