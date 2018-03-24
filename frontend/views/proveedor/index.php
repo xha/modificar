@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel frontend\Models\ProveedorSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Proveedors';
+$this->title = 'Proveedores';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="proveedor-index">
@@ -24,15 +24,15 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'CodProv',
             'Descrip',
-            'TipoPrv',
-            'TipoID3',
-            'TipoID',
-            //'ID3',
+            //'TipoPrv',
+            //'TipoID3',
+            //'TipoID',
+            'ID3',
             //'DescOrder',
             //'Clase',
             //'Activo',
             //'Represent',
-            //'Direc1',
+            'Direc1',
             //'Direc2',
             //'Pais',
             //'Estado',

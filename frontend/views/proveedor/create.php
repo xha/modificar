@@ -7,7 +7,7 @@ use yii\helpers\Html;
 /* @var $model frontend\Models\Proveedor */
 
 $this->title = 'Crear Proveedor';
-$this->params['breadcrumbs'][] = ['label' => 'Proveedors', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Proveedores', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="proveedor-create">

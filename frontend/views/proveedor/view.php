@@ -7,12 +7,10 @@ use yii\widgets\DetailView;
 /* @var $model frontend\Models\Proveedor */
 
 $this->title = $model->CodProv;
-$this->params['breadcrumbs'][] = ['label' => 'Proveedors', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Proveedores', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="proveedor-view">
-
-    <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
         <?= Html::a('Actualizar', ['update', 'id' => $model->CodProv], ['class' => 'btn btn-primary']) ?>

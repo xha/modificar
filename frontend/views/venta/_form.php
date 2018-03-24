@@ -20,9 +20,38 @@ date_default_timezone_set("America/Caracas");
 $fecha= time();
 $fecha=date('d-m-Y',$fecha);
 
-$contenido1='<table class="tablas inicial_em0" id="listado_detalle"></table>';
+$contenido1='<table class="inicial_em2">
+            <tr>
+                <td>
+                    Fila<br />
+                    <input id="d_fila" maxlength="5" class="texto texto-xc" readonly="true" />
+                </td>
+                <td>
+                    Descripci&oacute;n *<br />
+                    <input id="d_nombre" maxlength="120" class="texto texto-largo" />
+                </td> 
+                <td>
+                    Cantidad *<br />
+                    <input id="d_cantidad" maxlength="10" class="texto texto-xc" 
+                     onkeypress="return entero(event);" onkeyup="valida_cantidad(this.id)" onblur="calcula_subtotal()" />
+                </td>
+                <td>
+                    Precio *<br />
+                    <input id="d_precio" maxlength="20" class="texto texto-corto" 
+                     onkeypress="return entero(event);" onkeyup="valida_cantidad(this.id)" onblur="calcula_subtotal()" />
+                </td>
+                <td>
+                    Total Item<br />
+                    <input id="d_total" readonly maxlength="20" class="texto texto-ec" />
+                </td>
+                <td>
+                    <button type="button" class="btn btn-primary" id="d_agregar" onclick="valida_detalle()">Actualizar</button>
+                </td>
+            </tr>
+        </table>
+        <table class="tablas inicial_em2" style="margin-top: 10px" id="listado_detalle"></table>';
 
-$contenido2 = '<table class="tablas">
+$contenido2 = '<table class="tablas inicial_em2">
             <tr>
                 <td align="right">Nota 1</td>
                 <td><input id="venta-notas1" name="Venta[Notas1]" maxlength="60" class="texto texto-el" /></td>
@@ -159,7 +188,7 @@ $contenido2 = '<table class="tablas">
             "id" => "m_servicio",
             "header" => "<h3>Listado de Items</h3>",
             "size" => "modal-lg",
-            "toggleButton" => ["label" => "Agregar Producto / Servicio", 'class' => 'btn btn-primary'],
+            "toggleButton" => ["label" => "Agregar Producto / Servicio", 'class' => 'btn btn-primary', 'id' => 'b_servicio'],
         ]);
 
        echo "<select id='m_esprod' class='texto texto medio'>

@@ -30,7 +30,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'ID3',
             //'TipoID3',
             //'TipoID',
-            'Activo',
+            //'Activo',
             //'DescOrder',
             //'Clase',
             //'Represent',

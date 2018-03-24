@@ -1,6 +1,26 @@
 $(function() {
     titulo_detalle();
+    chequeo();
 });
+
+function chequeo() {
+    var tipofac = trae('venta-tipofac').value;
+    var codubic = trae('venta-codubic');
+    var codvend = trae('venta-codvend');
+    var codclie = trae('venta-codclie');
+    var b_servicio = trae('b_servicio');
+    var d_cantidad = trae('d_cantidad');
+    var d_precio = trae('d_precio');
+
+    if (tipofac!='F') {
+        codubic.disabled = true;
+        codclie.disabled = true;
+        codvend.disabled = true;
+        b_servicio.disabled = true;
+        d_cantidad.disabled = true;
+        d_precio.disabled = true;
+    }
+}
 /******************************************** VISTA******************************************************/
 function titulo_detalle() {
     var arreglo = new Array();
@@ -150,7 +170,6 @@ function agregar_fila(valor,otro) {
     var costo = trae('c_'+valor);
     var iva = trae('venta-notas10');
     iva = parseFloat(iva.options[iva.selectedIndex].text);
-
     var campos = new Array();
     var total = 0;
     var imp = 0;
@@ -164,20 +183,37 @@ function agregar_fila(valor,otro) {
         campos.push(cadena[1]);
         campos.push(cantidad.value);
         campos.push(costo.value);
-        if (cadena[2]=="0") {
-            imp = 0;
-        } else {
-            imp = parseFloat(total)*iva;
-        }
-        campos.push(imp);
         total = parseFloat(cantidad.value)*parseFloat(costo.value);
-        
+        if (cadena[2]=="0") {
+            imp = (parseFloat(total)*iva) / 100;
+        } else {
+            imp = 0;
+        }
+        campos.push(imp);        
         campos.push(imp+total);
         campos.push(cadena[3]);
-        tabla.appendChild(add_filas(campos, 'td','####cancela_detalle','',8));
+        tabla.appendChild(add_filas(campos, 'td','editar_detalle####cancela_detalle','',8));
         cantidad.value = ""; 
-        costo.value = ""; 
+        costo.value = "";
+        recorre_tabla(); 
     }
+}
+
+function editar_detalle(response) {
+    var arreglo = response.split("#");
+    var d_fila = trae('d_fila');
+    var d_nombre = trae('d_nombre');
+    var d_cantidad = trae('d_cantidad');
+    var d_precio = trae('d_precio');
+    var d_total = trae('d_total');
+    var iva = trae('venta-notas10');
+    iva = parseFloat(iva.options[iva.selectedIndex].text);
+
+    d_fila.value = arreglo[0];
+    d_nombre.value = arreglo[2];
+    d_cantidad.value = arreglo[3];
+    d_precio.value = arreglo[4];
+    d_total.value = (parseFloat(arreglo[3]) * parseFloat(arreglo[4])) + ((parseFloat(arreglo[3]) * parseFloat(arreglo[4])) * iva) / 100;
 }
 
 function cancela_detalle(response) {
@@ -192,3 +228,80 @@ function rebaja_linea(valor) {
     trae("listado_detalle").rows[valor].cells[5].innerHTML = "0";  
     trae("listado_detalle").rows[valor].cells[6].innerHTML = "0";  
 }
+
+function recorre_tabla() {
+    var descuento = trae('descuento');
+    var sub_total = trae('sub_total');
+    var impuesto = trae('impuesto');
+    var total = trae('total');
+
+    descuento.value = 0;
+    sub_total.value = 0;
+    impuesto.value = 0;
+    total.value = 0;
+    $("#listado_detalle tr").each(function (index) {
+        var td = $(this).children("td");
+        if (td.eq(0).text()!="") {
+            sub_total.value = parseFloat(sub_total.value) + Math.round((parseFloat(td.eq(3).text()) * parseFloat(td.eq(4).text()))* 100) / 100;
+            impuesto.value = parseFloat(impuesto.value) + Math.round(parseFloat(td.eq(5).text())* 100) / 100;
+            total.value = parseFloat(total.value) + parseFloat(sub_total.value) + parseFloat(impuesto.value);
+        }
+    });
+}
+
+function valida_detalle() {
+impuesto.value}
+
+function validar_data() {
+    var i_items = document.getElementById('i_items');
+    var fecha = trae('despacho-fechae').value;
+    var codclie = trae('despacho-codclie').value;
+    var descrip = trae('despacho-descrip').value;
+    var codubic = trae('despacho-codubic').value;
+    var img = trae('img_load');
+    var fila;
+    var arreglo;
+    i_items.value = "";
+    
+    if ((descrip!="") && (fecha!="") && (codclie!="")) {
+        $("#listado_detalle tr").each(function (index) {
+            var td = $(this).children("td");
+            if ((td.eq(0).text()!="") && (parseInt(td.eq(6).text())>0)) {
+                arreglo="";
+                arreglo+=td.eq(0).text()+"#";
+                arreglo+=td.eq(1).text()+"#";
+                arreglo+=td.eq(2).text()+"#";
+                arreglo+=td.eq(3).text()+"#";
+                arreglo+=td.eq(4).text()+"#";
+                arreglo+=td.eq(5).text()+"#";
+                arreglo+=td.eq(6).text()+"#";
+                arreglo+=td.eq(7).text()+"¬";
+                //i_items.value+= trae('add_fila_i_'+fila).tittle+"¬";
+                i_items.value+= arreglo;
+            }
+        });
+        
+        if (i_items.value!="") {
+            img.style.visibility = "visible";
+            trae('btn_enviar').disabled = true;
+            trae('btn_buscaa').disabled = true;
+            $.post('../despacho/buscar-verificar-producto',{cadena : i_items.value, codubic : codubic},function(data){
+                var data = $.parseJSON(data);
+                if (data=="") {
+                    document.forms['w0'].submit();
+                } else {
+                    alert("Existen Items ya comprometidos, revisar orden");
+                    for (fila = 0; fila < data.length; fila++) {
+                        rebaja_linea(data[fila].Linea);
+                    }
+                    trae('btn_enviar').disabled = false;
+                    trae('btn_buscaa').disabled = false;
+                    img.style.visibility = "hidden";
+                }
+            });
+        }
+    } else {
+        alert("Faltan datos");
+    }
+}
+
