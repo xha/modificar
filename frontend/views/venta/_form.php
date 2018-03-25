@@ -33,12 +33,16 @@ $contenido1='<table class="inicial_em2">
                 <td>
                     Cantidad *<br />
                     <input id="d_cantidad" maxlength="10" class="texto texto-xc" 
-                     onkeypress="return entero(event);" onkeyup="valida_cantidad(this.id)" onblur="calcula_subtotal()" />
+                     onkeypress="return entero(event);" onkeyup="valida_cantidad(this.id)" />
                 </td>
                 <td>
                     Precio *<br />
                     <input id="d_precio" maxlength="20" class="texto texto-corto" 
-                     onkeypress="return entero(event);" onkeyup="valida_cantidad(this.id)" onblur="calcula_subtotal()" />
+                     onkeypress="return entero(event);" onkeyup="valida_cantidad(this.id)" />
+                </td>
+                <td>
+                    Exento<br />
+                    <input id="es_exento" class="texto texto-xc" readonly="true" />
                 </td>
                 <td>
                     Total Item<br />
@@ -91,10 +95,12 @@ $contenido2 = '<table class="tablas inicial_em2">
         </table>';
 ?>
 
+<div class='alerta_msj' id="msj_principal"><?= $msg ?></div>
 <div class="venta-form">
     <center>
         <?= Html::submitButton("Actualizar ".$titulo,array('class'=>'btn btn-success','onclick'=>'js:enviar_data();')); ?>
     </center>
+
     <?php $form = ActiveForm::begin(); ?>
     <?php //Html::submitButton($model->isNewRecord ? 'Crear' : 'Actualizar', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     <input type="hidden" id='i_items' name='i_items' />
@@ -182,6 +188,7 @@ $contenido2 = '<table class="tablas inicial_em2">
             </tr>
         </table>
     </div>
+    <?= $form->field($model, 'Direc1')->TextInput(['readonly' => true]); ?>
     <div style="float: left; width: 100%">
     <?php 
         Modal::begin([
@@ -236,7 +243,6 @@ $contenido2 = '<table class="tablas inicial_em2">
     <?= $form->field($model, 'CodSucu')->hiddenInput(['value'=>'00000'])->label(false); ?>
     <?= $form->field($model, 'TotalPrd')->hiddenInput()->label(false); ?>
     <?= $form->field($model, 'ID3')->hiddenInput()->label(false); ?>
-    <?= $form->field($model, 'Direc1')->hiddenInput()->label(false); ?>
     <?= $form->field($model, 'Direc2')->hiddenInput()->label(false); ?>
     <?= $form->field($model, 'Telef')->hiddenInput()->label(false); ?>
     <?= $form->field($model, 'TotalSrv')->hiddenInput()->label(false); ?>

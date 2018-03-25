@@ -76,6 +76,7 @@ function buscar_cliente() {
                 telef.value = data.Telef;
                 nombre.value = data.Descrip;
                 rif.value = data.ID3;
+                trae('venta-codclie').value = cliente;
             } else {
                 cliente.value = "";
             }
@@ -206,6 +207,7 @@ function editar_detalle(response) {
     var d_cantidad = trae('d_cantidad');
     var d_precio = trae('d_precio');
     var d_total = trae('d_total');
+    var exento = trae('es_exento');
     var iva = trae('venta-notas10');
     iva = parseFloat(iva.options[iva.selectedIndex].text);
 
@@ -213,7 +215,13 @@ function editar_detalle(response) {
     d_nombre.value = arreglo[2];
     d_cantidad.value = arreglo[3];
     d_precio.value = arreglo[4];
-    d_total.value = (parseFloat(arreglo[3]) * parseFloat(arreglo[4])) + ((parseFloat(arreglo[3]) * parseFloat(arreglo[4])) * iva) / 100;
+    if (arreglo[5]>0) {
+        exento.value = 0;
+        d_total.value = (parseFloat(arreglo[3]) * parseFloat(arreglo[4])) + ((parseFloat(arreglo[3]) * parseFloat(arreglo[4])) * iva) / 100;
+    } else {
+        exento.value = 1;
+        d_total.value = parseFloat(arreglo[3]) * parseFloat(arreglo[4]);
+    }
 }
 
 function cancela_detalle(response) {
@@ -250,23 +258,44 @@ function recorre_tabla() {
 }
 
 function valida_detalle() {
-impuesto.value}
+    var fila = trae('d_fila').value;
+    var nombre = trae('d_nombre').value;
+    var cantidad = parseFloat(trae('d_cantidad').value);
+    var precio = parseFloat(trae('d_precio').value);
+    var exento = trae('es_exento').value;
+    var total = 0;
+    var impuesto = 0;
+    var iva = trae('venta-notas10');
+    iva = parseFloat(iva.options[iva.selectedIndex].text);
+    
+    if (exento==1) impuesto = Math.round(((cantidad * precio) * iva) / 100) * 100 / 100;
+    total = (cantidad * precio) + iva;
+    trae("listado_detalle").rows[fila].cells[2].innerHTML = nombre;  
+    trae("listado_detalle").rows[fila].cells[3].innerHTML = cantidad;  
+    trae("listado_detalle").rows[fila].cells[4].innerHTML = precio;  
+    trae("listado_detalle").rows[fila].cells[5].innerHTML = impuesto;  
+    trae("listado_detalle").rows[fila].cells[6].innerHTML = total;  
+    recorre_tabla();
+}
 
-function validar_data() {
+function enviar_data() {
     var i_items = document.getElementById('i_items');
-    var fecha = trae('despacho-fechae').value;
-    var codclie = trae('despacho-codclie').value;
-    var descrip = trae('despacho-descrip').value;
-    var codubic = trae('despacho-codubic').value;
+    var fecha = trae('venta-fechae').value;
+    var codclie = trae('venta-codclie').value;
+    var descrip = trae('venta-descrip').value;
+    var codubic = trae('venta-codubic').value;
+    var codvend = trae('venta-codvend').value;
     var img = trae('img_load');
+    var msj_principal = trae('msj_principal');
     var fila;
     var arreglo;
     i_items.value = "";
+    msj_principal.innerHTML = "";
     
-    if ((descrip!="") && (fecha!="") && (codclie!="")) {
+    if ((descrip!="") && (fecha!="") && (codclie!="") && (codvend!="") && (codubic!="")) {
         $("#listado_detalle tr").each(function (index) {
             var td = $(this).children("td");
-            if ((td.eq(0).text()!="") && (parseInt(td.eq(6).text())>0)) {
+            if (parseInt(td.eq(6).text())>0) {
                 arreglo="";
                 arreglo+=td.eq(0).text()+"#";
                 arreglo+=td.eq(1).text()+"#";
@@ -276,7 +305,6 @@ function validar_data() {
                 arreglo+=td.eq(5).text()+"#";
                 arreglo+=td.eq(6).text()+"#";
                 arreglo+=td.eq(7).text()+"¬";
-                //i_items.value+= trae('add_fila_i_'+fila).tittle+"¬";
                 i_items.value+= arreglo;
             }
         });
@@ -284,24 +312,12 @@ function validar_data() {
         if (i_items.value!="") {
             img.style.visibility = "visible";
             trae('btn_enviar').disabled = true;
-            trae('btn_buscaa').disabled = true;
-            $.post('../despacho/buscar-verificar-producto',{cadena : i_items.value, codubic : codubic},function(data){
-                var data = $.parseJSON(data);
-                if (data=="") {
-                    document.forms['w0'].submit();
-                } else {
-                    alert("Existen Items ya comprometidos, revisar orden");
-                    for (fila = 0; fila < data.length; fila++) {
-                        rebaja_linea(data[fila].Linea);
-                    }
-                    trae('btn_enviar').disabled = false;
-                    trae('btn_buscaa').disabled = false;
-                    img.style.visibility = "hidden";
-                }
-            });
+            document.forms['w0'].submit();
+        } else {
+            msj_principal.innerHTML = "Faltan datos";
         }
     } else {
-        alert("Faltan datos");
+        msj_principal.innerHTML = "Faltan datos";
     }
 }
 
