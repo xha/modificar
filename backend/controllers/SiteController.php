@@ -179,7 +179,7 @@ class SiteController extends Controller
                 $salida = $connection->createCommand($query)->queryOne();
         
                 if ($salida['clave']!="") {
-                    $msg = "Clave Actualizada";
+                    $msg = "Registro Actualizado";
                 } else {
                     $msg = "Error al actualizar la clave";
                 }
@@ -224,7 +224,7 @@ class SiteController extends Controller
             $msg = $connection->createCommand($query)->execute();
             
             if ($msg > 0) {
-                $msg = "Registro Guardado";
+                $msg = "Registro Actualizado";
             } else {
                 $msg = "Error al Actualizar";
             };

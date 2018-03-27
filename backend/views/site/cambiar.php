@@ -12,9 +12,11 @@ $this->title = 'Cambiar Clave';
 
 $this->params['breadcrumbs'][] = $this->title;
 $id_usuario = Yii::$app->user->identity->id_usuario;
+$this->registerJsFile('../../../frontend/web/general.js');
+$this->registerCssFile('../../../frontend/web/css/general.css');
 ?>
 
-<h3><?= $msg ?></h3>
+<div id="msj_principal"><?= $msg ?></div>
 
 <div class="cambiar-form">
 
@@ -34,3 +36,13 @@ $id_usuario = Yii::$app->user->identity->id_usuario;
 
     <?php ActiveForm::end(); ?>
 </div>
+<script type="text/javascript">
+    window.onload = function() {
+        var msj_principal = trae('msj_principal').innerHTML;
+        if (msj_principal!="Registro Actualizado") {
+            oculta_mensaje('msj_principal',msj_principal,-1);
+        } else {
+            oculta_mensaje('msj_principal',msj_principal,1);
+        }
+    };
+</script>

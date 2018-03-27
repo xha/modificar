@@ -43,7 +43,7 @@ $this->registerJsFile('../../../frontend/web/general.js');
 <script type="text/javascript">
     window.onload = function() {
         var msj_principal = trae('msj_principal').innerHTML;
-        if (msj_principal!="Registro Guardado") {
+        if (msj_principal!="Registro Actualizado") {
             oculta_mensaje('msj_principal',msj_principal,-1);
         } else {
             oculta_mensaje('msj_principal',msj_principal,1);
