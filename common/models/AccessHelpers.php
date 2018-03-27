@@ -8,7 +8,7 @@ class AccessHelpers {
     public static function getAcceso($accion,$rol) {
         $connection = \Yii::$app->db;
         $sql = "SELECT u.usuario as nombre
-                FROM ISFA_Usuario u, ISFA_RolAccion ra, ISFA_Accion a
+                FROM ISOP_Usuario u, ISOP_RolAccion ra, ISOP_Accion a
                 WHERE a.descripcion =:accion
                 AND ra.id_accion=a.id_accion
                 AND u.id_rol=ra.id_rol 
@@ -32,7 +32,7 @@ class AccessHelpers {
         if (in_array($operacion, $permitirSiempre)) return true;
         if (strpos($operacion, 'busca')) return true;
         if (strpos($operacion, 'imprim')) return true;
-        
+        return true;
         $rol = Yii::$app->user->identity->id_rol;
         if (!AccessHelpers::getAcceso($operacion,$rol)) {
             echo $this->render('../no_permitido');

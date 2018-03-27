@@ -31,6 +31,8 @@ class ActivarForm extends model{
             'usuario' => 'Usuario',
             'id_rol' => 'Rol',
             'reseteo' => 'Resetear Clave (por defecto 123456)',
+            'activado' => 'Activo',
+            'CodUbic' => 'Ubicación',
         ];
     }
 }

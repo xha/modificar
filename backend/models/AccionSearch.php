@@ -19,7 +19,7 @@ class AccionSearch extends Accion
     {
         return [
             [['id_accion'], 'integer'],
-            [['descripcion'], 'safe'],
+            [['descripcion', 'alias'], 'safe'],
             [['activo'], 'boolean'],
         ];
     }
@@ -65,6 +65,7 @@ class AccionSearch extends Accion
         ]);
 
         $query->andFilterWhere(['like', 'descripcion', $this->descripcion]);
+        $query->andFilterWhere(['like', 'alias', $this->alias]);
 
         return $dataProvider;
     }

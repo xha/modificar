@@ -105,7 +105,7 @@ class Compra extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['CodSucu', 'TipoCom', 'NumeroD', 'CodProv'], 'required'],
+            [['CodSucu', 'TipoCom', 'CodProv'], 'required'],
             [['CodSucu', 'TipoCom', 'NumeroD', 'CodProv', 'NroCtrol', 'CodEsta', 'CodUsua', 'OTipo', 'ONumero', 'NumeroP', 'NumeroE', 'NumeroC', 'NumeroN', 'NumeroR', 'NroEstable', 'PtoEmision', 'AutSRI', 'Moneda', 'CodUbic', 'Descrip', 'Direc1', 'Direc2', 'ZipCode', 'Telef', 'ID3', 'DetalChq', 'OrdenC', 'CodOper', 'Notas1', 'Notas2', 'Notas3', 'Notas4', 'Notas5', 'Notas6', 'Notas7', 'Notas8', 'Notas9', 'Notas10'], 'string'],
             [['Signo', 'TipoSus', 'TipoTraE', 'NGiros', 'NMeses'], 'integer'],
             [['FechaT', 'FechaP', 'FechaI', 'FechaR', 'FechaE', 'FechaV'], 'safe'],

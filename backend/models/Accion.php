@@ -21,7 +21,7 @@ class Accion extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'ISOP_accion';
+        return 'ISOP_Accion';
     }
 
     /**
@@ -32,7 +32,7 @@ class Accion extends \yii\db\ActiveRecord
         return [
             [['descripcion'], 'required'],
             [['activo'], 'boolean'],
-            [['descripcion'], 'string', 'max' => 250],
+            [['descripcion', 'alias'], 'string', 'max' => 250],
         ];
     }
 
@@ -43,7 +43,8 @@ class Accion extends \yii\db\ActiveRecord
     {
         return [
             'id_accion' => 'Id Accion',
-            'descripcion' => 'Descripcion',
+            'descripcion' => 'Ruta',
+            'alias' => 'Alias',
             'activo' => 'Activo',
         ];
     }

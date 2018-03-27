@@ -21,10 +21,12 @@ switch ($TipoFac) {
     break;
     case 'C': $titulo = 'Notas de Entrega de Venta';
     break;
+    case 'D': $titulo = 'Devoluciones de Notas de Entrega de Venta';
+    break;
     default: $titulo = 'Presupuesto';
 }
 
-$this->title = $titulo;
+$this->title = 'Crear '.$titulo;
 $this->params['breadcrumbs'][] = ['label' => 'Ventas', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

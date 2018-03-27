@@ -28,7 +28,7 @@ $contenido1='<table class="inicial_em2">
                 </td>
                 <td>
                     Descripci&oacute;n *<br />
-                    <input id="d_nombre" maxlength="180" class="texto texto-largo" />
+                    <input id="d_nombre" maxlength="120" class="texto texto-largo" />
                 </td> 
                 <td>
                     Cantidad *<br />
@@ -105,7 +105,7 @@ $contenido2 = '<table class="tablas inicial_em2">
     <?php $form = ActiveForm::begin(); ?>
     <?php //Html::submitButton($model->isNewRecord ? 'Crear' : 'Actualizar', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     <input type="hidden" id='i_items' name='i_items' />
-    <input type="hidden" id='nuevo' name='nuevo' value="<?= $model->isNewRecord; ?>" />
+    <input type="hidden" id='nro_unico' name='nro_unico' value="<?= $model->NroUnico; ?>" />
     <?= $form->field($model, "id_usuario")->hiddenInput(['value'=> 1])->label(false); ?>
     <div class="inicial_em1">
         <table class="tabla-decorada" height="202">
@@ -148,7 +148,7 @@ $contenido2 = '<table class="tablas inicial_em2">
                 <td align="right"><b>IVA</b></td>
                 <td>
                     <?= Html::activeDropDownList($model, 'Notas10',
-                      ArrayHelper::map(Impuesto::find()->where(['Activo' => '1'])->OrderBy('Descrip')->all(), 'CodTaxs', 'MtoTax', 'Descrip'), ['class'=>'form-control']) ?>
+                      ArrayHelper::map(Impuesto::find()->where(['Activo' => '1'])->OrderBy('MtoTax Desc')->all(), 'CodTaxs', 'MtoTax', 'Descrip'), ['class'=>'form-control']) ?>
                 </td>
             </tr>
             <tr>

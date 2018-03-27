@@ -4,13 +4,15 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model backend\Models\Pregunta */
+/* @var $model app\models\Pregunta */
 
 $this->title = $model->id_pregunta;
 $this->params['breadcrumbs'][] = ['label' => 'Preguntas', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pregunta-view">
+
+    
 
     <p>
         <?= Html::a('Actualizar', ['update', 'id' => $model->id_pregunta], ['class' => 'btn btn-primary']) ?>
@@ -27,7 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id_pregunta',
-            'descripcion',
+            'descripcion:ntext',
             'activo',
         ],
     ]) ?>

@@ -21,10 +21,6 @@ use yii\helpers\Html;
                 <li class="dropdown user user-menu">
                 <?php  
                     if (Yii::$app->user->isGuest) {
-                        echo Html::a(
-                        'Error en el Login',
-                        ['/site/logout'],
-                        ['data-method' => 'post']);
                     } else {
                 ?>              
                     <?= Html::a(

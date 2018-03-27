@@ -9,6 +9,7 @@ use backend\models\Pregunta;
 /* @var $model app\models\Usuario */
 /* @var $form yii\widgets\ActiveForm */
 $this->title = 'Recuperar Usuario';
+$this->registerJsFile('../../../frontend/web/general.js');
 ?>
 
 <div id="msj_principal"><?= $msg ?></div>
@@ -42,7 +43,9 @@ $this->title = 'Recuperar Usuario';
 <script type="text/javascript">
     window.onload = function() {
         var msj_principal = trae('msj_principal').innerHTML;
-        if (msj_principal!="") {
+        if (msj_principal!="Registro Guardado") {
+            oculta_mensaje('msj_principal',msj_principal,-1);
+        } else {
             oculta_mensaje('msj_principal',msj_principal,1);
         }
     };

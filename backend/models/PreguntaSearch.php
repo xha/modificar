@@ -1,14 +1,14 @@
 <?php
 
-namespace backend\Models;
+namespace backend\models;
 
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use backend\Models\Pregunta;
+use backend\models\Pregunta;
 
 /**
- * PreguntaSearch represents the model behind the search form of `backend\Models\Pregunta`.
+ * PreguntaSearch represents the model behind the search form about `app\models\Pregunta`.
  */
 class PreguntaSearch extends Pregunta
 {

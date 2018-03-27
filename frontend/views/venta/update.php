@@ -20,6 +20,8 @@ switch ($TipoFac) {
     break;
     case 'C': $titulo = 'Notas de Entrega de Venta';
     break;
+    case 'D': $titulo = 'Devoluciones de Notas de Entrega de Venta';
+    break;
     default: $titulo = 'Presupuesto';
 }
 

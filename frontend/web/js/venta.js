@@ -1,7 +1,7 @@
 $(function() {
     titulo_detalle();
     chequeo();
-    if (trae('nuevo') != 1) {
+    if (trae('nro_unico').value != "") {
         busca_detalle();
     }
 });
@@ -11,6 +11,7 @@ function chequeo() {
     var codubic = trae('venta-codubic');
     var codvend = trae('venta-codvend');
     var codclie = trae('venta-codclie');
+    var fechae = trae('compra-fechae');
     var iva = trae('venta-notas10');
     var b_servicio = trae('b_servicio');
     var d_cantidad = trae('d_cantidad');
@@ -19,6 +20,7 @@ function chequeo() {
     if (tipofac!='F') {
         codubic.disabled = true;
         codclie.disabled = true;
+        fechae.disabled = true;
         codvend.disabled = true;
         b_servicio.disabled = true;
         d_cantidad.disabled = true;
@@ -175,7 +177,25 @@ function busca_detalle() {
     var numerod = trae('venta-numerod').value;
     
     $.getJSON('../venta/buscar-detalle-venta',{numerod : numerod, tipofac : tipofac},function(data){
-        
+        if (data!="") {
+            var tabla = trae('listado_detalle');
+            var campos = new Array();
+            var i;
+
+            for (i = 0; i < data.length; i++) {
+                campos.length = 0;
+                campos.push(data[i].NroLinea);
+                campos.push(data[i].CodItem);
+                campos.push(data[i].Descrip1+data[i].Descrip2+data[i].Descrip3);
+                campos.push(parseFloat(data[i].Cantidad));
+                campos.push(parseFloat(data[i].Costo));
+                campos.push(parseFloat(data[i].MtoTax));
+                campos.push(parseFloat(data[i].TotalItem));
+                campos.push(data[i].EsServ);
+                
+                tabla.appendChild(add_filas(campos, 'td','editar_detalle####cancela_detalle','',8));
+            }
+        }
     });
 }
 
@@ -269,11 +289,15 @@ function recorre_tabla() {
     $("#listado_detalle tr").each(function (index) {
         var td = $(this).children("td");
         if (td.eq(0).text()!="") {
-            sub_total.value = parseFloat(sub_total.value) + Math.round((parseFloat(td.eq(3).text()) * parseFloat(td.eq(4).text()))* 100) / 100;
-            impuesto.value = parseFloat(impuesto.value) + Math.round(parseFloat(td.eq(5).text())* 100) / 100;
+            sub_total.value = parseFloat(sub_total.value) + (parseFloat(td.eq(3).text()) * parseFloat(td.eq(4).text()));
+            impuesto.value = parseFloat(impuesto.value) + parseFloat(td.eq(5).text());
             total.value = parseFloat(sub_total.value) + parseFloat(impuesto.value);
         }
     });
+    
+    sub_total.value = Math.round(sub_total.value * 100) / 100;
+    impuesto.value = Math.round(impuesto.value * 100) / 100;
+    total.value = Math.round(total.value * 100) / 100;
 }
 
 function valida_detalle() {
@@ -290,7 +314,7 @@ function valida_detalle() {
     iva = parseFloat(iva.options[iva.selectedIndex].text);
     
     subtotal = parseFloat(cantidad.value) * parseFloat(precio.value);
-    if (exento==0) impuesto = Math.round(((subtotal * iva) / 100) * 100) / 100;
+    if (exento.value==0) impuesto = Math.round(((subtotal * iva) / 100) * 100) / 100;
     total = Math.round((subtotal + impuesto) * 100) / 100;
     trae("listado_detalle").rows[fila.value].cells[2].innerHTML = nombre.value;  
     trae("listado_detalle").rows[fila.value].cells[3].innerHTML = cantidad.value;  

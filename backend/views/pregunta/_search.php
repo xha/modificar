@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model backend\Models\PreguntaSearch */
+/* @var $model app\models\PreguntaSearch */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
@@ -17,7 +17,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'id_pregunta') ?>
 
-    <?= $form->field($model, 'descripcion') ?>
+    <?= $form->field($model, 'nombre') ?>
 
     <?= $form->field($model, 'activo') ?>
 

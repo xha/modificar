@@ -13,11 +13,11 @@ use backend\models\Sadepo;
 $this->title = 'Activar usuario';
 
 $this->params['breadcrumbs'][] = $this->title;
-$this->registerJsFile('@web/general.js');
-$this->registerCssFile('@web/css/general.css');
+$this->registerJsFile('../../../frontend/web/general.js');
+$this->registerCssFile('../../../frontend/web/css/general.css');
 ?>
 
-<h3><?= $msg ?></h3>
+<div id="msj_principal"><?= $msg ?></div>
 
 <div class="activar-form">
 
@@ -27,6 +27,7 @@ $this->registerCssFile('@web/css/general.css');
     <?= $form->field($model, 'usuario')->label(false)->widget(\yii\jui\AutoComplete::classname(), [
             'clientOptions' => [
                 'source' => $data,
+                'minLength'=>'3', 
             ],
             'class'=>'form-control',
         ]) 
@@ -36,10 +37,9 @@ $this->registerCssFile('@web/css/general.css');
     
     <?= $form->field($model, 'CodUbic')->dropDownList(ArrayHelper::map(Sadepo::find()->where(['activo' => '1'])->OrderBy('Descrip')->all(), 'CodUbic', 'CodUbic', 'Descrip')); ?>
 
+    <?= $form->field($model, 'activado')->dropDownList(['1' => 'SI', '0' => 'NO']); ?>
 
     <?= $form->field($model, 'reseteo')->checkbox(); ?><br /><br />
-
-    <?= $form->field($model, 'activado')->checkbox(); ?><br /><br />
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Actualizar' : 'Actualizar', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
@@ -52,8 +52,13 @@ $this->registerCssFile('@web/css/general.css');
 <script type="text/javascript">
     $(function() {
         buscar_usuarios();
+        var msj_principal = trae('msj_principal').innerHTML;
+        if (msj_principal!="Registro Actualizado") {
+            oculta_mensaje('msj_principal',msj_principal,-1);
+        } else {
+            oculta_mensaje('msj_principal',msj_principal,1);
+        }
     });
-    
     function titulo_usuario() {
         var arreglo = new Array();
             arreglo[0] = 'Usuario';

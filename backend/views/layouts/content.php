@@ -3,7 +3,7 @@ use yii\widgets\Breadcrumbs;
 use dmstr\widgets\Alert;
 
 ?>
-<div class="content-wrapper">
+<div class="content-wrapper" style='background-color: #fff'>
     <section class="content-header">
         <?php if (isset($this->blocks['content-header'])) { ?>
             <h1><?= $this->blocks['content-header'] ?></h1>
@@ -39,7 +39,7 @@ use dmstr\widgets\Alert;
     <div class="pull-right hidden-xs">
         <b>Version</b> 2.0
     </div>
-    <strong>CopyLeft &copy; 2018 </strong>
+    <strong>CopyLeft &copy; 2018 </strong>HL Softwares
 </footer>
 
 <!-- Control Sidebar -->

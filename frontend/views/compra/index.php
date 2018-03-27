@@ -4,18 +4,36 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 
 /* @var $this yii\web\View */
-/* @var $searchModel frontend\Models\CompraSearch */
+/* @var $searchModel frontend\Models\VentaSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Orden de C/S';
+switch ($TipoCom) {
+    case 'H': $titulo = 'Compra';
+    break;
+    case 'I': $titulo = 'Devoluciones de Compra';
+    break;
+    case 'S': $titulo = 'Cotización';
+    break;
+    case 'J': $titulo = 'Notas de Entrega de Compra';
+    break;
+    case 'K': $titulo = 'Devoluciones de Notas de Entrega de Compra';
+    break;
+    default: $titulo = 'Orden de C/S';
+}
+
+$this->title = $titulo;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="compra-index">
 
-    <p>
-        <?= Html::a('Crear Orden de C/S', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
-
+    <center>
+        <?php
+            if ($TipoCom=='L') {
+                echo Html::a('Crear '.$titulo, ['compra/create?TipoCom='.$TipoCom.'&titulo='.$titulo], ['class' => 'btn btn-success']);
+            }
+        ?>
+    </center>
+    <br />
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
@@ -25,70 +43,82 @@ $this->params['breadcrumbs'][] = $this->title;
             //'CodSucu',
             //'TipoCom',
             'NumeroD',
-            'CodProv',
             //'NroUnico',
             //'NroCtrol',
             //'CodEsta',
             //'CodUsua',
+            //'EsCorrel',
+            //'CodConv',
             //'Signo',
             //'FechaT',
             //'OTipo',
             //'ONumero',
-            //'NumeroP',
-            //'NumeroE',
             //'NumeroC',
-            //'NumeroN',
+            //'NumeroT',
             //'NumeroR',
-            //'TipoSus',
             //'TipoTraE',
+            //'AutSRI',
             //'NroEstable',
             //'PtoEmision',
-            //'AutSRI',
-            //'FechaP',
+            //'NumeroF',
+            //'NumeroNCF',
+            //'NumeroP',
+            //'NumeroE',
+            //'NumeroZ',
             //'Moneda',
             //'Factor',
             //'MontoMEx',
+            'CodProv',
+            //'CodVend',
             //'CodUbic',
             'Descrip',
             //'Direc1',
             //'Direc2',
+            //'Direc3',
             //'ZipCode',
             //'Telef',
             //'ID3',
             //'Monto',
-            //'OtrosC',
             //'MtoTax',
             //'Fletes',
             //'TGravable',
             //'TGravable0',
             //'TExento',
+            //'CostoPrd',
+            //'CostoSrv',
             //'DesctoP',
             //'RetenIVA',
-            //'FechaI',
             //'FechaR',
+            //'FechaI',
             //'FechaE',
             [
                'attribute' => 'FechaE',
                 'format' =>  ['date', 'php:d-m-Y'],
             ],
             //'FechaV',
-            //'CancelI',
-            //'CancelE',
-            //'CancelT',
-            //'CancelC',
-            //'CancelA',
-            //'CancelG',
             'MtoTotal',
             //'Contado',
             //'Credito',
+            //'CancelI',
+            //'CancelA',
+            //'CancelE',
+            //'CancelC',
+            //'CancelT',
+            //'CancelG',
+            //'CancelP',
+            //'Cambio',
+            //'MtoExtra',
+            //'ValorPtos',
+            //'Descto1',
+            //'PctAnual',
+            //'MtoInt1',
+            //'Descto2',
+            //'PctManejo',
+            //'MtoInt2',
             //'SaldoAct',
             //'MtoPagos',
             //'MtoNCredito',
             //'MtoNDebito',
-            //'Descto1',
-            //'MtoInt1',
-            //'Descto2',
-            //'MtoInt2',
             //'MtoFinanc',
             //'DetalChq',
             //'TotalPrd',
@@ -97,6 +127,10 @@ $this->params['breadcrumbs'][] = $this->title;
             //'CodOper',
             //'NGiros',
             //'NMeses',
+            //'MtoComiVta',
+            //'MtoComiCob',
+            //'MtoComiVtaD',
+            //'MtoComiCobD',
             //'Notas1',
             //'Notas2',
             //'Notas3',
@@ -108,7 +142,28 @@ $this->params['breadcrumbs'][] = $this->title;
             //'Notas9',
             //'Notas10',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            //['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'yii\grid\ActionColumn',
+                'template' => '{view} {update}',
+                'buttons' => [
+                    'print' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-print"></span>', $url, [
+                                    'title' => Yii::t('app', 'Documento '.$model->NumeroD),
+                                    'target' => '_blank',
+                        ]);
+                    }
+                ],
+                'urlCreator' => function ($action, $model, $key, $index) {
+                    if ($action === 'update') {
+                        $url = Yii::$app->urlManager->createUrl(['compra/update?NumeroD='.$model->NumeroD.'&CodSucu='.$model->CodSucu.'&TipoCom='.$model->TipoCom.'&CodProv='.$model->CodProv]); // your own url generation logic
+                        return $url;
+                    } else {
+                        $url = Yii::$app->urlManager->createUrl(['compra/view?NumeroD='.$model->NumeroD.'&CodSucu='.$model->CodSucu.'&TipoCom='.$model->TipoCom.'&CodProv='.$model->CodProv]); // your own url generation logic
+                        return $url;
+                    }
+                }
+                          
+            ],
         ],
     ]); ?>
 </div>

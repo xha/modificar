@@ -8,11 +8,11 @@ $params = array_merge(
 
 return [
     'id' => 'app-backend',
-    'name'=>'Modificar Orden / Presupuesto',
+    'name'=>'Modificar O/P',
     'language' => 'es',
     'basePath' => dirname(__DIR__),
-    'controllerNamespace' => 'backend\controllers',
     'bootstrap' => ['log'],
+    'controllerNamespace' => 'backend\controllers',
     'modules' => [],
     'components' => [
         'request' => [
@@ -44,6 +44,13 @@ return [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+            ],
+        ],
+        'assetManager' => [
+            'bundles' => [
+                'dmstr\web\AdminLteAsset' => [
+                    'skin' => 'skin-red-light',
+                ],
             ],
         ],
     ],
