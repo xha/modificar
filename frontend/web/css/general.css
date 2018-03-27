@@ -23,6 +23,7 @@
 
 #msj_principal {
     height: 40;
+    font-size: 14px;
     display: none;
     width : 60%;
     padding : 5px;
@@ -377,10 +378,10 @@ a {
 }
 
 .tablas tr:nth-child(odd) {
-    background-color:#f2f2f2;
+    background-color:#fff9f9;
 }
 .tablas tr:nth-child(even) {
-    background-color:#fbfbfb;
+    background-color:#FFF;
 }
 
 .tablas td {

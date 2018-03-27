@@ -2,7 +2,7 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-ALTER PROCEDURE [dbo].[SP_CONTEO] (
+CREATE PROCEDURE [dbo].[SP_CONTEO] (
 	@prm_FechaIni datetime 
 	,@prm_FechaFin datetime 
 )

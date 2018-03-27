@@ -1,6 +1,9 @@
 $(function() {
     titulo_detalle();
     chequeo();
+    if (trae('nuevo') != 1) {
+        busca_detalle();
+    }
 });
 
 function chequeo() {
@@ -8,6 +11,7 @@ function chequeo() {
     var codubic = trae('venta-codubic');
     var codvend = trae('venta-codvend');
     var codclie = trae('venta-codclie');
+    var iva = trae('venta-notas10');
     var b_servicio = trae('b_servicio');
     var d_cantidad = trae('d_cantidad');
     var d_precio = trae('d_precio');
@@ -19,6 +23,7 @@ function chequeo() {
         b_servicio.disabled = true;
         d_cantidad.disabled = true;
         d_precio.disabled = true;
+        iva.disabled = true;
     }
 }
 /******************************************** VISTA******************************************************/
@@ -165,10 +170,19 @@ function buscar_items() {
     }
 }
 
+function busca_detalle() {
+    var tipofac = trae('venta-tipofac').value;
+    var numerod = trae('venta-numerod').value;
+    
+    $.getJSON('../venta/buscar-detalle-venta',{numerod : numerod, tipofac : tipofac},function(data){
+        
+    });
+}
+
 function agregar_fila(valor,otro) {
     var tabla = trae('listado_detalle');
-    var cantidad = trae('i_'+valor);
-    var costo = trae('c_'+valor);
+    var cantidad = trae('c_'+valor);
+    var costo = trae('i_'+valor);
     var iva = trae('venta-notas10');
     iva = parseFloat(iva.options[iva.selectedIndex].text);
     var campos = new Array();
@@ -184,9 +198,9 @@ function agregar_fila(valor,otro) {
         campos.push(cadena[1]);
         campos.push(cantidad.value);
         campos.push(costo.value);
-        total = parseFloat(cantidad.value)*parseFloat(costo.value);
+        total =  Math.round((parseFloat(cantidad.value)*parseFloat(costo.value)) * 100) / 100;
         if (cadena[2]=="0") {
-            imp = (parseFloat(total)*iva) / 100;
+            imp = Math.round(((parseFloat(total)*iva) / 100) * 100) / 100;
         } else {
             imp = 0;
         }
@@ -211,6 +225,9 @@ function editar_detalle(response) {
     var iva = trae('venta-notas10');
     iva = parseFloat(iva.options[iva.selectedIndex].text);
 
+    arreglo[2] = trae("listado_detalle").rows[arreglo[0]].cells[2].innerHTML;
+    arreglo[3] = trae("listado_detalle").rows[arreglo[0]].cells[3].innerHTML;
+    arreglo[4] = trae("listado_detalle").rows[arreglo[0]].cells[4].innerHTML;
     d_fila.value = arreglo[0];
     d_nombre.value = arreglo[2];
     d_cantidad.value = arreglo[3];
@@ -222,6 +239,8 @@ function editar_detalle(response) {
         exento.value = 1;
         d_total.value = parseFloat(arreglo[3]) * parseFloat(arreglo[4]);
     }
+    
+    d_total.value = Math.round(d_total.value * 100) / 100;
 }
 
 function cancela_detalle(response) {
@@ -238,10 +257,10 @@ function rebaja_linea(valor) {
 }
 
 function recorre_tabla() {
-    var descuento = trae('descuento');
-    var sub_total = trae('sub_total');
-    var impuesto = trae('impuesto');
-    var total = trae('total');
+    var descuento = trae('venta-desctop');
+    var sub_total = trae('venta-monto');
+    var impuesto = trae('venta-mtotax');
+    var total = trae('venta-mtototal');
 
     descuento.value = 0;
     sub_total.value = 0;
@@ -252,29 +271,39 @@ function recorre_tabla() {
         if (td.eq(0).text()!="") {
             sub_total.value = parseFloat(sub_total.value) + Math.round((parseFloat(td.eq(3).text()) * parseFloat(td.eq(4).text()))* 100) / 100;
             impuesto.value = parseFloat(impuesto.value) + Math.round(parseFloat(td.eq(5).text())* 100) / 100;
-            total.value = parseFloat(total.value) + parseFloat(sub_total.value) + parseFloat(impuesto.value);
+            total.value = parseFloat(sub_total.value) + parseFloat(impuesto.value);
         }
     });
 }
 
 function valida_detalle() {
-    var fila = trae('d_fila').value;
-    var nombre = trae('d_nombre').value;
-    var cantidad = parseFloat(trae('d_cantidad').value);
-    var precio = parseFloat(trae('d_precio').value);
-    var exento = trae('es_exento').value;
+    var fila = trae('d_fila');
+    var nombre = trae('d_nombre');
+    var cantidad = trae('d_cantidad');
+    var precio = trae('d_precio');
+    var exento = trae('es_exento');
+    var d_total = trae('d_total');
     var total = 0;
     var impuesto = 0;
+    var subtotal = 0;
     var iva = trae('venta-notas10');
     iva = parseFloat(iva.options[iva.selectedIndex].text);
     
-    if (exento==1) impuesto = Math.round(((cantidad * precio) * iva) / 100) * 100 / 100;
-    total = (cantidad * precio) + iva;
-    trae("listado_detalle").rows[fila].cells[2].innerHTML = nombre;  
-    trae("listado_detalle").rows[fila].cells[3].innerHTML = cantidad;  
-    trae("listado_detalle").rows[fila].cells[4].innerHTML = precio;  
-    trae("listado_detalle").rows[fila].cells[5].innerHTML = impuesto;  
-    trae("listado_detalle").rows[fila].cells[6].innerHTML = total;  
+    subtotal = parseFloat(cantidad.value) * parseFloat(precio.value);
+    if (exento==0) impuesto = Math.round(((subtotal * iva) / 100) * 100) / 100;
+    total = Math.round((subtotal + impuesto) * 100) / 100;
+    trae("listado_detalle").rows[fila.value].cells[2].innerHTML = nombre.value;  
+    trae("listado_detalle").rows[fila.value].cells[3].innerHTML = cantidad.value;  
+    trae("listado_detalle").rows[fila.value].cells[4].innerHTML = precio.value;  
+    trae("listado_detalle").rows[fila.value].cells[5].innerHTML = impuesto;
+    trae("listado_detalle").rows[fila.value].cells[6].innerHTML = total;  
+    
+    fila.value = "";
+    nombre.value = "";
+    cantidad.value = "";
+    precio.value = "";
+    exento.value = "";
+    d_total.value = "";
     recorre_tabla();
 }
 
@@ -285,12 +314,19 @@ function enviar_data() {
     var descrip = trae('venta-descrip').value;
     var codubic = trae('venta-codubic').value;
     var codvend = trae('venta-codvend').value;
+    var totalprd = trae('venta-totalprd');
+    var totalsrv = trae('venta-totalsrv');
+    var costoprd = trae('venta-costoprd');
+    var costosrv = trae('venta-costosrv');
     var img = trae('img_load');
     var msj_principal = trae('msj_principal');
     var fila;
     var arreglo;
     i_items.value = "";
-    msj_principal.innerHTML = "";
+    costoprd.value = 0;
+    costosrv.value = 0;
+    totalprd.value = 0;
+    totalsrv.value = 0;
     
     if ((descrip!="") && (fecha!="") && (codclie!="") && (codvend!="") && (codubic!="")) {
         $("#listado_detalle tr").each(function (index) {
@@ -306,6 +342,13 @@ function enviar_data() {
                 arreglo+=td.eq(6).text()+"#";
                 arreglo+=td.eq(7).text()+"¬";
                 i_items.value+= arreglo;
+                if (td.eq(7).text()=='0') {
+                    totalprd+=parseFloat(td.eq(3).text()) * parseFloat(td.eq(4).text());
+                    costoprd+=parseFloat(td.eq(4).text());
+                } else {
+                    totalsrv+=parseFloat(td.eq(3).text()) * parseFloat(td.eq(4).text());
+                    costosrv+=parseFloat(td.eq(4).text());
+                }
             }
         });
         
@@ -314,10 +357,10 @@ function enviar_data() {
             trae('btn_enviar').disabled = true;
             document.forms['w0'].submit();
         } else {
-            msj_principal.innerHTML = "Faltan datos";
+            oculta_mensaje('msj_principal','Faltan datos');
         }
     } else {
-        msj_principal.innerHTML = "Faltan datos";
+        oculta_mensaje('msj_principal','Faltan datos');
     }
 }
 

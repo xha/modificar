@@ -28,16 +28,16 @@ $contenido1='<table class="inicial_em2">
                 </td>
                 <td>
                     Descripci&oacute;n *<br />
-                    <input id="d_nombre" maxlength="120" class="texto texto-largo" />
+                    <input id="d_nombre" maxlength="180" class="texto texto-largo" />
                 </td> 
                 <td>
                     Cantidad *<br />
-                    <input id="d_cantidad" maxlength="10" class="texto texto-xc" 
+                    <input id="d_cantidad" maxlength="10" class="texto texto-ec" 
                      onkeypress="return entero(event);" onkeyup="valida_cantidad(this.id)" />
                 </td>
                 <td>
                     Precio *<br />
-                    <input id="d_precio" maxlength="20" class="texto texto-corto" 
+                    <input id="d_precio" maxlength="20" class="texto texto-ec" 
                      onkeypress="return entero(event);" onkeyup="valida_cantidad(this.id)" />
                 </td>
                 <td>
@@ -95,15 +95,17 @@ $contenido2 = '<table class="tablas inicial_em2">
         </table>';
 ?>
 
-<div class='alerta_msj' id="msj_principal"><?= $msg ?></div>
+<div id="msj_principal"><?= $msg ?></div>
 <div class="venta-form">
     <center>
-        <?= Html::submitButton("Actualizar ".$titulo,array('class'=>'btn btn-success','onclick'=>'js:enviar_data();')); ?>
+        <?= Html::submitButton("Actualizar ".$titulo,array('class'=>'btn btn-success','onclick'=>'js:enviar_data();', 'id'=> 'btn_enviar')); ?>
+        <img id='img_load' style='visibility: hidden' src='../../../img/preloader.gif' />
     </center>
 
     <?php $form = ActiveForm::begin(); ?>
     <?php //Html::submitButton($model->isNewRecord ? 'Crear' : 'Actualizar', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     <input type="hidden" id='i_items' name='i_items' />
+    <input type="hidden" id='nuevo' name='nuevo' value="<?= $model->isNewRecord; ?>" />
     <?= $form->field($model, "id_usuario")->hiddenInput(['value'=> 1])->label(false); ?>
     <div class="inicial_em1">
         <table class="tabla-decorada" height="202">
@@ -115,7 +117,7 @@ $contenido2 = '<table class="tablas inicial_em2">
                                 'source' => $data,
                                 'minLength'=>'4', 
                             ],
-                            'options' => ['class' => 'texto texto-ec','onblur'=>'js: buscar_cliente()'],
+                            'options' => ['class' => 'texto texto-ec','onblur'=>'js: buscar_cliente()', 'readonly' => !$model->isNewRecord],
 
                         ]) 
                     ?>
@@ -131,6 +133,7 @@ $contenido2 = '<table class="tablas inicial_em2">
                       ArrayHelper::map(Vendedor::find()->where(['Activo' => '1'])->OrderBy('Descrip')->all(), 'CodVend', 'Descrip'), ['class'=>'form-control','prompt'=>'Seleccione']) ?>
                 </td>
                 <td align="right" rowspan="4">
+                    <br /><br /><br /><br /><br />
                     <img src="../../../img/saint.jpg" width="167" />
                 </td>
             </tr>
@@ -172,48 +175,50 @@ $contenido2 = '<table class="tablas inicial_em2">
             </tr>
             <tr>
                 <td align="right"><b>Descuento</b></td>
-                <td><input id="descuento" readonly class="texto texto-corto" /></td>
+                <td><?= $form->field($model, 'DesctoP')->TextInput(['class'=>'texto texto-corto', 'readonly' => true])->label(false); ?></td>
             </tr>
             <tr>
                 <td align="right"><b>Sub Total</b></td>
-                <td><input readonly id="sub_total" class="texto texto-corto" /></td>
+                <td><?= $form->field($model, 'Monto')->TextInput(['class'=>'texto texto-corto', 'readonly' => true])->label(false); ?></td>
             </tr>
             <tr>
                 <td align="right"><b>Impuestos</b></td>
-                <td><input readonly id="impuesto" class="texto texto-corto" /></td>
+                <td><?= $form->field($model, 'MtoTax')->TextInput(['class'=>'texto texto-corto', 'readonly' => true])->label(false); ?></td>
             </tr>
             <tr>
                 <td align="right" height="57"><b>Total</b></td>
-                <td><input readonly id="total" class="texto texto-corto" /></td>
+                <td><?= $form->field($model, 'MtoTotal')->TextInput(['class'=>'texto texto-corto', 'readonly' => true])->label(false); ?></td>
             </tr>
         </table>
     </div>
-    <?= $form->field($model, 'Direc1')->TextInput(['readonly' => true]); ?>
-    <div style="float: left; width: 100%">
-    <?php 
-        Modal::begin([
-            "id" => "m_servicio",
-            "header" => "<h3>Listado de Items</h3>",
-            "size" => "modal-lg",
-            "toggleButton" => ["label" => "Agregar Producto / Servicio", 'class' => 'btn btn-primary', 'id' => 'b_servicio'],
-        ]);
-
-       echo "<select id='m_esprod' class='texto texto medio'>
-                <option value='0'>Productos</option>
-                <option value='1'>Servicios</option>
-           </select>
-            <input class='texto texto medio' id='m_producto' onkeypress='return presiona(event,buscar_items);' />
-            <label class='btn btn-primary' onclick='buscar_items()'>Buscar</label>
-            <img id='img_producto' style='visibility: hidden' src='../../../img/preloader.gif' />
-            <div style='max-height: 600px; overflow: scroll; width: 100%' >
-                <h4 style='color: red' id='h_bloqueo'></h4>
-                <table id='resultado_producto' class='tablas inicial00' style='width: 98%'></table>
-            </div>";
-
-        Modal::end();
-    ?>
-    </div>
     <table>
+        <tr>
+            <td>
+                <?= $form->field($model, 'Direc1')->TextInput(['readonly' => true, 'class'=> 'texto texto-xl']); ?><br /><br />
+                <?php 
+                    Modal::begin([
+                        "id" => "m_servicio",
+                        "header" => "<h3>Listado de Items</h3>",
+                        "size" => "modal-lg",
+                        "toggleButton" => ["label" => "Agregar Producto / Servicio", 'class' => 'btn btn-primary', 'id' => 'b_servicio'],
+                    ]);
+
+                   echo "<select id='m_esprod' class='texto texto medio'>
+                            <option value='0'>Productos</option>
+                            <option value='1'>Servicios</option>
+                       </select>
+                        <input class='texto texto medio' id='m_producto' onkeypress='return presiona(event,buscar_items);' />
+                        <label class='btn btn-primary' onclick='buscar_items()'>Buscar</label>
+                        <img id='img_producto' style='visibility: hidden' src='../../../img/preloader.gif' />
+                        <div style='max-height: 600px; overflow: scroll; width: 100%' >
+                            <h4 style='color: red' id='h_bloqueo'></h4>
+                            <table id='resultado_producto' class='tablas inicial00' style='width: 98%'></table>
+                        </div>";
+
+                    Modal::end();
+                ?>
+            </td>
+        </tr>
         <tr>
             <td>
                 <?php
@@ -241,19 +246,15 @@ $contenido2 = '<table class="tablas inicial_em2">
 
     <?= $form->field($model, 'TipoFac')->hiddenInput(['value'=>$TipoFac])->label(false); ?>
     <?= $form->field($model, 'CodSucu')->hiddenInput(['value'=>'00000'])->label(false); ?>
-    <?= $form->field($model, 'TotalPrd')->hiddenInput()->label(false); ?>
+    <?= $form->field($model, 'TotalPrd')->hiddenInput(['value'=>'0'])->label(false); ?>
     <?= $form->field($model, 'ID3')->hiddenInput()->label(false); ?>
     <?= $form->field($model, 'Direc2')->hiddenInput()->label(false); ?>
     <?= $form->field($model, 'Telef')->hiddenInput()->label(false); ?>
-    <?= $form->field($model, 'TotalSrv')->hiddenInput()->label(false); ?>
-    <?= $form->field($model, 'CostoPrd')->hiddenInput()->label(false); ?>
-    <?= $form->field($model, 'CostoSrv')->hiddenInput()->label(false); ?>
-    <?= $form->field($model, 'Monto')->hiddenInput()->label(false); ?>
-    <?= $form->field($model, 'MtoTax')->hiddenInput()->label(false); ?>
-    <?= $form->field($model, 'MtoTotal')->hiddenInput()->label(false); ?>
-    <?= $form->field($model, 'TGravable')->hiddenInput()->label(false); ?>
-    <?= $form->field($model, 'TExento')->hiddenInput()->label(false); ?>
-    <?= $form->field($model, 'DesctoP')->hiddenInput()->label(false); ?>
+    <?= $form->field($model, 'TotalSrv')->hiddenInput(['value'=>'0'])->label(false); ?>
+    <?= $form->field($model, 'CostoPrd')->hiddenInput(['value'=>'0'])->label(false); ?>
+    <?= $form->field($model, 'CostoSrv')->hiddenInput(['value'=>'0'])->label(false); ?>
+    <?= $form->field($model, 'TGravable')->hiddenInput(['value'=>'0'])->label(false); ?>
+    <?= $form->field($model, 'TExento')->hiddenInput(['value'=>'0'])->label(false); ?>
     <?= $form->field($model, 'CodUsua')->hiddenInput(['value'=>$id_usuario])->label(false); ?>
     <?= $form->field($model, 'Signo')->hiddenInput(['value'=>'1'])->label(false); ?>
     <?= $form->field($model, 'EsExPickup')->hiddenInput(['value'=>'0'])->label(false); ?>
@@ -261,7 +262,7 @@ $contenido2 = '<table class="tablas inicial_em2">
     <?= $form->field($model, 'MontoMEx')->hiddenInput(['value'=>'0'])->label(false); ?>
     <?= $form->field($model, 'Fletes')->hiddenInput(['value'=>'0'])->label(false); ?>
     <?= $form->field($model, 'RetenIVA')->hiddenInput(['value'=>'0'])->label(false); ?>
-    <?= $form->field($model, 'Credito')->hiddenInput()->label(false); ?>
+    <?= $form->field($model, 'Credito')->hiddenInput(['value'=>'0'])->label(false); ?>
     <?= $form->field($model, 'Contado')->hiddenInput(['value'=>'0'])->label(false); ?>
     <?= $form->field($model, 'EsCorrel')->hiddenInput(['value'=>'0'])->label(false); ?>
     <?= $form->field($model, 'Municipio')->hiddenInput(['value'=>'0'])->label(false); ?>

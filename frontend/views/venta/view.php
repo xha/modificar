@@ -6,20 +6,20 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model frontend\Models\Venta */
 
-$this->title = $model->CodSucu;
+$this->title = $model->NumeroD;
 $this->params['breadcrumbs'][] = ['label' => 'Ventas', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="venta-view">
     <p>
         <?= Html::a('Actualizar', ['update', 'CodSucu' => $model->CodSucu, 'NumeroD' => $model->NumeroD, 'TipoFac' => $model->TipoFac], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Desactivar', ['delete', 'CodSucu' => $model->CodSucu, 'NumeroD' => $model->NumeroD, 'TipoFac' => $model->TipoFac], [
+        <?php /*Html::a('Desactivar', ['delete', 'CodSucu' => $model->CodSucu, 'NumeroD' => $model->NumeroD, 'TipoFac' => $model->TipoFac], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => 'Confirmar Desactivado',
                 'method' => 'post',
             ],
-        ]) ?>
+        ])*/ ?>
     </p>
 
     <?= DetailView::widget([

@@ -25,7 +25,11 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="venta-index">
 
     <center>
-        <?= Html::a('Crear '.$titulo, ['create?TipoFac='.$TipoFac.'&titulo='.$titulo], ['class' => 'btn btn-success']) ?>
+        <?php
+            if ($TipoFac=='F') {
+                echo Html::a('Crear '.$titulo, ['create?TipoFac='.$TipoFac.'&titulo='.$titulo], ['class' => 'btn btn-success']);
+            }
+        ?>
     </center>
     <br />
     <?= GridView::widget([

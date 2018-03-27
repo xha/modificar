@@ -6,12 +6,22 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model frontend\Models\Venta */
 
-if (isset($_GET['titulo'])==1) {
-    $titulo = $_GET['titulo'];
-    $tipofac = $_GET['TipoFac'];
+if (isset($_GET['TipoFac'])==1) {
+    $TipoFac = $_GET['TipoFac'];
 } else {
-    $titulo = 'Presupuesto';
-    $tipofac = 'F';
+    $TipoFac = 'F';
+}
+
+switch ($TipoFac) {
+    case 'A': $titulo = 'Factura';
+    break;
+    case 'B': $titulo = 'Devoluciones de Factura';
+    break;
+    case 'E': $titulo = 'Pedido';
+    break;
+    case 'C': $titulo = 'Notas de Entrega de Venta';
+    break;
+    default: $titulo = 'Presupuesto';
 }
 
 $this->title = $titulo;
@@ -23,7 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= $this->render('_form', [
         'model' => $model,
         'data' => $data,
-        'TipoFac' => $tipofac,
+        'TipoFac' => $TipoFac,
         'titulo' => $titulo,
         'msg' => $msg
     ]) ?>

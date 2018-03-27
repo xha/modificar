@@ -346,6 +346,7 @@ function paginador(pag,total,data,tabla,extra) {
 function oculta_mensaje(elemento,texto,tipo) {
     var element = trae(elemento);
     var color = "";
+    var clase = "";
     if (typeof tipo == "undefined"){
         color = texto;
     } else {
