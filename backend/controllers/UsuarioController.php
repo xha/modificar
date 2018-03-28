@@ -36,7 +36,11 @@ class UsuarioController extends Controller
             return false;
         }
 
-        return AccessHelpers::chequeo();
+        if (!AccessHelpers::chequeo()) {
+            return $this->redirect(['site/permiso']);
+        } else {
+            return true;
+        }
     }
 
     /**

@@ -39,7 +39,7 @@ class SiteController extends Controller
                         'allow' => true,
                     ],
                     [
-                        'actions' => ['logout', 'index', 'cambiar', 'recuperar', 'activar', 'busca-usuarios'],
+                        'actions' => ['logout', 'index', 'cambiar', 'recuperar', 'activar', 'permiso', 'busca-usuarios'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -74,6 +74,11 @@ class SiteController extends Controller
     public function actionIndex()
     {
         return $this->render('index');
+    }
+    
+    public function actionPermiso()
+    {
+        return $this->render('permiso');
     }
 
     /**

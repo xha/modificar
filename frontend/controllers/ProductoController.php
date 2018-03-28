@@ -29,6 +29,18 @@ class ProductoController extends Controller
         ];
     }
 
+    public function beforeAction($action)
+    {
+        if (!parent::beforeAction($action)) {
+            return false;
+        }
+
+        if (!AccessHelpers::chequeo()) {
+            return $this->redirect(['site/permiso']);
+        } else {
+            return true;
+        }
+    }
     /**
      * Lists all Producto models.
      * @return mixed

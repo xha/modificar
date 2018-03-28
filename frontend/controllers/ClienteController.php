@@ -34,6 +34,19 @@ class ClienteController extends Controller
      * Lists all Cliente models.
      * @return mixed
      */
+    public function beforeAction($action)
+    {
+        if (!parent::beforeAction($action)) {
+            return false;
+        }
+
+        if (!AccessHelpers::chequeo()) {
+            return $this->redirect(['site/permiso']);
+        } else {
+            return true;
+        }
+    }
+    
     public function actionIndex()
     {
         $searchModel = new ClienteSearch();

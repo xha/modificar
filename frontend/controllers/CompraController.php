@@ -36,6 +36,19 @@ class CompraController extends Controller
      * Lists all Compra models.
      * @return mixed
      */
+    public function beforeAction($action)
+    {
+        if (!parent::beforeAction($action)) {
+            return false;
+        }
+
+        if (!AccessHelpers::chequeo()) {
+            return $this->redirect(['site/permiso']);
+        } else {
+            return true;
+        }
+    }
+    
     public function actionIndex($TipoCom = NULL)
     {
         if (isset($TipoCom)<>1) $TipoCom = 'L';

@@ -32,13 +32,9 @@ class AccessHelpers {
         if (in_array($operacion, $permitirSiempre)) return true;
         if (strpos($operacion, 'busca')) return true;
         if (strpos($operacion, 'imprim')) return true;
-        return true;
+        
         $rol = Yii::$app->user->identity->id_rol;
-        if (!AccessHelpers::getAcceso($operacion,$rol)) {
-            echo $this->render('../no_permitido');
-            return false;
-        }
-        return true;
+        return AccessHelpers::getAcceso($operacion,$rol);
     }
     
 }

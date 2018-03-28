@@ -8,6 +8,7 @@ use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use common\models\LoginForm;
+use common\models\AccessHelpers;
 use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
@@ -92,6 +93,10 @@ class SiteController extends Controller
         ]);
     }
 
+    public function actionPermiso()
+    {
+        return $this->render('permiso');
+    }
     /**
      * Logs in a user.
      *
