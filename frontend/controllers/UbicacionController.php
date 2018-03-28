@@ -8,6 +8,7 @@ use frontend\Models\UbicacionSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use common\models\AccessHelpers;
 
 /**
  * UbicacionController implements the CRUD actions for Ubicacion model.

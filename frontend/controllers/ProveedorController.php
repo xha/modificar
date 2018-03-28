@@ -8,6 +8,7 @@ use frontend\Models\ProveedorSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use common\models\AccessHelpers;
 
 /**
  * ProveedorController implements the CRUD actions for Proveedor model.

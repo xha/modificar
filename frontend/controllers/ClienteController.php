@@ -9,6 +9,7 @@ use frontend\Models\ClienteSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use common\models\AccessHelpers;
 
 /**
  * ClienteController implements the CRUD actions for Cliente model.
