@@ -14,8 +14,7 @@ use frontend\models\Impuesto;
 $this->registerJsFile('@web/general.js');
 $this->registerJsFile('@web/js/compra.js');
 $this->registerCssFile('@web/css/general.css');
-//$id_usuario = Yii::$app->user->identity->id_usuario;
-$id_usuario = 1;
+$id_usuario = Yii::$app->user->identity->id_usuario;
 date_default_timezone_set("America/Caracas");
 $fecha= time();
 $fecha=date('d-m-Y',$fecha);
@@ -56,6 +55,82 @@ $contenido1='<table class="inicial_em2">
         <table class="tablas inicial_em2" style="margin-top: 10px" id="listado_detalle"></table>';
 
 $contenido2 = '<table class="tablas inicial_em2">
+            <tr>
+                <td align="right">Nota 1</td>
+                <td><input id="compra-notas1" name="Venta[Notas1]" maxlength="60" class="texto texto-el" /></td>
+            </tr> 
+            <tr>
+                <td align="right">Nota 2</td>
+                <td><input id="compra-notas2" name="Venta[Notas2]" maxlength="60" class="texto texto-el" /></td>
+            </tr> 
+            <tr>
+                <td align="right">Nota 3</td>
+                <td><input id="compra-notas3" name="Venta[Notas3]" maxlength="60" class="texto texto-el" /></td>
+            </tr> 
+            <tr>
+                <td align="right">Nota 4</td>
+                <td><input id="compra-notas4" name="Venta[Notas4]" maxlength="60" class="texto texto-el" /></td>
+            </tr> 
+            <tr>
+                <td align="right">Nota 5</td>
+                <td><input id="compra-notas5" name="Venta[Notas5]" maxlength="60" class="texto texto-el" /></td>
+            </tr> 
+            <tr>
+                <td align="right">Nota 6</td>
+                <td><input id="compra-notas6" name="Venta[Notas6]" maxlength="60" class="texto texto-el" /></td>
+            </tr> 
+            <tr>
+                <td align="right">Nota 7</td>
+                <td><input id="compra-notas7" name="Venta[Notas7]" maxlength="60" class="texto texto-el" /></td>
+            </tr> 
+            <tr>
+                <td align="right">Nota 8</td>
+                <td><input id="compra-notas8" name="Venta[Notas8]" maxlength="60" class="texto texto-el" /></td>
+            </tr> 
+            <tr>
+                <td align="right">Nota 9</td>
+                <td><input id="compra-notas9" name="Venta[Notas9]" maxlength="60" class="texto texto-el" /></td>
+            </tr> 
+        </table>';
+$contenido3 = '<table class="tablas inicial_em2">
+            <tr>
+                <td align="right">Nota 1</td>
+                <td><input id="compra-notas1" name="Venta[Notas1]" maxlength="60" class="texto texto-el" /></td>
+            </tr> 
+            <tr>
+                <td align="right">Nota 2</td>
+                <td><input id="compra-notas2" name="Venta[Notas2]" maxlength="60" class="texto texto-el" /></td>
+            </tr> 
+            <tr>
+                <td align="right">Nota 3</td>
+                <td><input id="compra-notas3" name="Venta[Notas3]" maxlength="60" class="texto texto-el" /></td>
+            </tr> 
+            <tr>
+                <td align="right">Nota 4</td>
+                <td><input id="compra-notas4" name="Venta[Notas4]" maxlength="60" class="texto texto-el" /></td>
+            </tr> 
+            <tr>
+                <td align="right">Nota 5</td>
+                <td><input id="compra-notas5" name="Venta[Notas5]" maxlength="60" class="texto texto-el" /></td>
+            </tr> 
+            <tr>
+                <td align="right">Nota 6</td>
+                <td><input id="compra-notas6" name="Venta[Notas6]" maxlength="60" class="texto texto-el" /></td>
+            </tr> 
+            <tr>
+                <td align="right">Nota 7</td>
+                <td><input id="compra-notas7" name="Venta[Notas7]" maxlength="60" class="texto texto-el" /></td>
+            </tr> 
+            <tr>
+                <td align="right">Nota 8</td>
+                <td><input id="compra-notas8" name="Venta[Notas8]" maxlength="60" class="texto texto-el" /></td>
+            </tr> 
+            <tr>
+                <td align="right">Nota 9</td>
+                <td><input id="compra-notas9" name="Venta[Notas9]" maxlength="60" class="texto texto-el" /></td>
+            </tr> 
+        </table>';
+$contenido4 = '<table class="tablas inicial_em2">
             <tr>
                 <td align="right">Nota 1</td>
                 <td><input id="compra-notas1" name="Venta[Notas1]" maxlength="60" class="texto texto-el" /></td>
@@ -227,8 +302,18 @@ $contenido2 = '<table class="tablas inicial_em2">
                             [
                                 'label' => 'Comentarios',
                                 'content' => $contenido2,
-                                'headerOptions' => ['style'=>'font-weight:bold'],
-                                'options' => ['id' => 'myveryownID'],
+                                'options' => ['id' => 'div_comentarios'],
+                            ],
+                            [
+                                'label' => 'Sumario 1',
+                                'content' => $contenido3,
+                                'options' => ['id' => 'div_sacomp01'],
+                            ],
+                            [
+                                'label' => 'Sumario 2',
+                                'content' => $contenido4,
+                                //'headerOptions' => ['style'=>'font-weight:bold'],
+                                'options' => ['id' => 'div_sacomp02'],
                             ],
                         ],
                     ]);

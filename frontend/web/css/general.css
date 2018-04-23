@@ -362,7 +362,7 @@ a {
 
 .tablas th {
     font-weight: bold;
-    background-color: #DD4B39;
+    background-color: #3c8dbc;
     color: #FFF;
     text-transform: uppercase;
     font-size: 12px;
@@ -378,7 +378,7 @@ a {
 }
 
 .tablas tr:nth-child(odd) {
-    background-color:#fff9f9;
+    background-color:#f8f8f8;/*#f5fafc*/
 }
 .tablas tr:nth-child(even) {
     background-color:#FFF;
